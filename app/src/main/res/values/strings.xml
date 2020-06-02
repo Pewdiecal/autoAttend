@@ -1,0 +1,14 @@
+<resources>
+    <string name="app_name">autoAttend</string>
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="onboard_btn">Get Started</string>
+    <string name="frag_1_h1">Never miss a class</string>
+    <string name="frag_1_sub">Automated attendance sign-in.</string>
+    <string name="frag_2_h1">Scan your QR code only once</string>
+    <string name="frag_2_sub">Sign in for attendance anywhere on-time without rescanning for QR code.</string>
+    <string name="frag_3_h1">Always get notified on alerts</string>
+    <string name="frag_3_sub">Get notified immediately when error occurs.</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
