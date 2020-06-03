@@ -24,7 +24,7 @@ public class Onboard_1 extends Fragment {
     private String mParam2;
 
     public Onboard_1() {
-        // Required empty public constructor detached head test
+        // Required empty public constructor no detached head test
     }
 
     /**
