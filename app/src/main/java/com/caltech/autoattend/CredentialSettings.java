@@ -7,6 +7,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 
@@ -22,7 +23,10 @@ public class CredentialSettings extends AppCompatActivity {
         toolbar = findViewById(R.id.credential_bar);
         toolbar.setTitle(R.string.credential_title);
         setSupportActionBar(toolbar);
-
+        ActionBar ab = getSupportActionBar();
+        if (ab != null) {
+            ab.setDisplayHomeAsUpEnabled(true);
+        }
     }
 
     @Override
@@ -35,6 +39,14 @@ public class CredentialSettings extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
-        return super.onOptionsItemSelected(item);
+        switch (item.getItemId()) {
+            case R.id.action_save:
+
+                return true;
+            default:
+                finish();
+                return super.onOptionsItemSelected(item);
+
+        }
     }
 }
