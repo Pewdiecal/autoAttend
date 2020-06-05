@@ -14,7 +14,7 @@
             android:id="@+id/imageView3"
             android:layout_width="407dp"
             android:layout_height="283dp"
-            android:src="@drawable/ic_alert"
+            app:srcCompat="@drawable/ic_alert"
             app:layout_constraintBottom_toTopOf="@+id/textView6"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"

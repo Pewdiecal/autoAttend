@@ -15,7 +15,7 @@
             android:id="@+id/imageView5"
             android:layout_width="305dp"
             android:layout_height="465dp"
-            android:src="@drawable/ic_phone"
+            app:srcCompat="@drawable/ic_phone"
             app:layout_constraintBottom_toTopOf="@+id/textView5"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.5"
