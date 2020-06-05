@@ -13,7 +13,7 @@
         android:layout_height="wrap_content"
         android:background="@color/primaryColor"
         android:contentDescription="@string/app_name"
-        android:src="@drawable/a"
+        app:srcCompat="@drawable/a"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

@@ -1,13 +1,14 @@
 package com.caltech.autoattend;
 
-import android.app.Activity;
 import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.WindowManager;
 
-public class MainActivity extends Activity {
+import androidx.appcompat.app.AppCompatActivity;
+
+public class MainActivity extends AppCompatActivity {
     /**
      * Duration of wait
      **/
@@ -23,17 +24,14 @@ public class MainActivity extends Activity {
 
         /* New Handler to start the Menu-Activity
          * and close this Splash-Screen after some seconds.*/
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                /* Create an Intent that will start the Menu-Activity. */
-                Intent mainIntent = new Intent(MainActivity.this, Onboard.class);
+        new Handler().postDelayed(() -> {
+            /* Create an Intent that will start the Menu-Activity. */
+            Intent mainIntent = new Intent(MainActivity.this, Onboard.class);
 
-                ActivityOptions options =
-                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
-                startActivity(mainIntent, options.toBundle());
-                finish();
-            }
+            ActivityOptions options =
+                    ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
+            startActivity(mainIntent, options.toBundle());
+            finish();
         }, SPLASH_DISPLAY_LENGTH);
     }
 

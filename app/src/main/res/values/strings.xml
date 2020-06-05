@@ -9,6 +9,11 @@
     <string name="frag_2_sub">Sign in for attendance anywhere on-time without rescanning for QR code.</string>
     <string name="frag_3_h1">Always get notified on alerts</string>
     <string name="frag_3_sub">Get notified immediately when error occurs.</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="credential_title">Credentials</string>
+    <string name="menu_credential">SAVE</string>
+    <string name="mail_text">Student/University Email</string>
+    <string name="password_text">Email Password</string>
+    <string name="password_helper_text">Enter Student/University email password</string>
+    <string name="fingerprint_option">Unlock app with fingerprint</string>
 </resources>
