@@ -4,11 +4,11 @@
 
     <string name="onboard_btn">Get Started</string>
     <string name="frag_1_h1">Never miss a class</string>
-    <string name="frag_1_sub">Automated attendance sign-in.</string>
+    <string name="frag_1_sub">Automated attendance sign-in with smart FailSafe feature to ensure successful sign in.</string>
     <string name="frag_2_h1">Scan your QR code only once</string>
     <string name="frag_2_sub">Sign in for attendance anywhere on-time without rescanning for QR code.</string>
     <string name="frag_3_h1">Always get notified on alerts</string>
-    <string name="frag_3_sub">Get notified immediately when error occurs.</string>
+    <string name="frag_3_sub">Get notified immediately when error occurs and also keep track of your attendance percentage.</string>
 
     <string name="credential_title">Credentials</string>
     <string name="menu_credential">SAVE</string>
@@ -16,4 +16,14 @@
     <string name="password_text">Email Password</string>
     <string name="password_helper_text">Enter Student/University email password</string>
     <string name="fingerprint_option">Unlock app with fingerprint</string>
+
+    <string name="credential_setup">Credential Setup</string>
+    <string name="next_btn">Next</string>
+    <string name="back_btn">Back</string>
+
+    <string name="schedule_setup">Schedule Setup</string>
+    <string name="schedule_description">Choose the starting and ending date of your semester.</string>
+    <string name="schedule_start_date">Start Date</string>
+    <string name="schedule_end_date">End Date</string>
+    <string name="schedule_finish_btn">Finish</string>
 </resources>

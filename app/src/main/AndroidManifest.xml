@@ -9,6 +9,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <activity android:name=".Schedule_setup"></activity>
+        <activity android:name=".setup_credentials" />
+        <activity android:name=".Subject_list" />
         <activity android:name=".CredentialSettings" />
         <activity android:name=".Onboard" />
         <activity android:name=".MainActivity">

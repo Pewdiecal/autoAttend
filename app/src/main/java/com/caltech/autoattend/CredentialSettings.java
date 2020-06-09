@@ -1,6 +1,7 @@
 package com.caltech.autoattend;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -39,9 +40,11 @@ public class CredentialSettings extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        //noinspection SwitchStatementWithTooFewBranches
         switch (item.getItemId()) {
             case R.id.action_save:
-
+                Intent mainIntent = new Intent(CredentialSettings.this, Subject_list.class);
+                startActivity(mainIntent);
                 return true;
             default:
                 finish();
