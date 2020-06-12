@@ -26,4 +26,16 @@
     <string name="schedule_start_date">Start Date</string>
     <string name="schedule_end_date">End Date</string>
     <string name="schedule_finish_btn">Finish</string>
+
+    <string name="addSub_title">Add New Class</string>
+    <string name="addSub_subName">Subject Name</string>
+    <string name="addSub_classSession">Class Session</string>
+    <string name="addSub_fromDate">From Date</string>
+    <string name="addSub_toDate">To Date</string>
+    <string name="addSub_day">Day</string>
+    <string name="addSub_startTime">Start Time</string>
+    <string name="addSub_endTime">End Time</string>
+    <string name="addSub_attendanceLink">Attendance Link</string>
+    <string name="addSub_scanQR">Scan QR</string>
+    <string name="addSub_chooseColor">Choose a color</string>
 </resources>
