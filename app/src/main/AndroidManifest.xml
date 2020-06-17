@@ -13,9 +13,7 @@
         <activity android:name=".Settings" />
         <activity android:name=".AddSubject" />
         <activity android:name=".ScheduleSetup" />
-        <activity
-            android:name=".SetupCredentials"
-            android:windowSoftInputMode="adjustPan|adjustResize" />
+        <activity android:name=".SetupCredentials" />
         <activity android:name=".SubjectList" />
         <activity android:name=".CredentialSettings" />
         <activity android:name=".Onboard" />
