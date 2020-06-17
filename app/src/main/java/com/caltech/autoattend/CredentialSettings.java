@@ -43,7 +43,7 @@ public class CredentialSettings extends AppCompatActivity {
         //noinspection SwitchStatementWithTooFewBranches
         switch (item.getItemId()) {
             case R.id.action_save:
-                Intent mainIntent = new Intent(CredentialSettings.this, Subject_list.class);
+                Intent mainIntent = new Intent(CredentialSettings.this, SubjectList.class);
                 startActivity(mainIntent);
                 return true;
             default:

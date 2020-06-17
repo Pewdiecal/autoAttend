@@ -12,9 +12,10 @@
 
     <string name="credential_title">Credentials</string>
     <string name="menu_credential">SAVE</string>
-    <string name="mail_text">Student/University Email</string>
-    <string name="password_text">Email Password</string>
-    <string name="password_helper_text">Enter Student/University email password</string>
+    <string name="mail_text">Student ID</string>
+    <string name="mail_helper_text">ID given by your university</string>
+    <string name="password_text">Password</string>
+    <string name="password_helper_text">Enter Student ID password</string>
     <string name="fingerprint_option">Unlock app with fingerprint</string>
 
     <string name="credential_setup">Credential Setup</string>

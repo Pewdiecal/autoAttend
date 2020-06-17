@@ -31,6 +31,8 @@ public class Onboard extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
         setContentView(R.layout.activity_onboard);
 
+
+        handler = new Handler();
         viewpager = findViewById(R.id.viewPager2);
         tabLayout = findViewById(R.id.tabLayout2);
         getStartedbtn = findViewById(R.id.button);
@@ -42,15 +44,13 @@ public class Onboard extends AppCompatActivity {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                //viewpager.beginFakeDrag();
-
                 if (viewpager.getScrollState() != SCROLL_STATE_DRAGGING) {
                     if (viewpager.getCurrentItem() == 2) {
-                        new Handler(getMainLooper()).post(() -> {
+                        handler.post(() -> {
                             viewpager.setCurrentItem(0);
                         });
                     } else {
-                        new Handler(getMainLooper()).post(() -> {
+                        handler.post(() -> {
                             viewpager.setCurrentItem(viewpager.getCurrentItem() + 1);
                         });
                     }
@@ -59,8 +59,9 @@ public class Onboard extends AppCompatActivity {
         }, 3000, 3000);
 
         getStartedbtn.setOnClickListener(v -> {
-            Intent mainIntent = new Intent(Onboard.this, CredentialSettings.class);
+            Intent mainIntent = new Intent(Onboard.this, SetupCredentials.class);
             startActivity(mainIntent);
         });
+
     }
 }
