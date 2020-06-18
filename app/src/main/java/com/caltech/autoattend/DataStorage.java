@@ -13,7 +13,7 @@ import java.util.concurrent.Executors;
 public abstract class DataStorage extends RoomDatabase {
 
     private static DataStorage INSTANCE;
-    private static final int NUMBER_OF_THREADS = 4;
+    private static final int NUMBER_OF_THREADS = 1;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
 

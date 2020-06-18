@@ -1,11 +1,10 @@
 package com.caltech.autoattend;
 
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
-import android.view.View;
-import android.view.inputmethod.InputMethodManager;
+import android.view.inputmethod.EditorInfo;
 import android.widget.Button;
 import android.widget.EditText;
 
@@ -21,6 +20,7 @@ public class SetupCredentials extends AppCompatActivity {
     EditText pwdEdt;
     Button nextBtn;
     Button backBtn;
+    DataRepo dataRepo;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,10 @@ public class SetupCredentials extends AppCompatActivity {
         pwdEdt = findViewById(R.id.pwdedt_setup);
         nextBtn = findViewById(R.id.setup_nextbtn);
         backBtn = findViewById(R.id.setup_backbtn);
+        dataRepo = new DataRepo(getApplication());
+        Intent mainIntent = new Intent(SetupCredentials.this, ScheduleSetup.class);
+
+        nextBtn.setEnabled(false);
 
         IDEdt.addTextChangedListener(new TextWatcher() {
             @Override
@@ -49,26 +53,75 @@ public class SetupCredentials extends AppCompatActivity {
             public void afterTextChanged(Editable s) {
                 if (s.length() > idInputLayout.getCounterMaxLength()) {
                     idInputLayout.setError("Max character length is " + idInputLayout.getCounterMaxLength());
-                } else if (s.length() == idInputLayout.getCounterMaxLength()) {
+                } else if (IDEdt.getText().toString().isEmpty()) {
+                    idInputLayout.setError("ID cannot be empty");
+                } else if (s.length() <= idInputLayout.getCounterMaxLength() && idInputLayout.getError() != null) {
                     idInputLayout.setError(null);
                 }
+
+                if (!IDEdt.getText().toString().isEmpty() && !pwdEdt.getText().toString().isEmpty()) {
+                    if (idInputLayout.getError() == null && pwdInputLayout.getError() == null) {
+                        nextBtn.setEnabled(true);
+                    } else {
+                        nextBtn.setEnabled(false);
+                    }
+                } else {
+                    nextBtn.setEnabled(false);
+                }
+
             }
         });
 
-        IDEdt.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        pwdEdt.addTextChangedListener(new TextWatcher() {
             @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
-                if (imm != null) {
-                    imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (pwdEdt.getText().toString().isEmpty()) {
+                    pwdInputLayout.setError("Password cannot be empty");
+                } else if (pwdInputLayout.getError() != null) {
+                    pwdInputLayout.setError(null);
+                }
+
+                if (!IDEdt.getText().toString().isEmpty() && !pwdEdt.getText().toString().isEmpty()) {
+                    if (idInputLayout.getError() == null && pwdInputLayout.getError() == null) {
+                        nextBtn.setEnabled(true);
+                    } else {
+                        nextBtn.setEnabled(false);
+                    }
+                } else {
+                    nextBtn.setEnabled(false);
                 }
             }
         });
 
-        backBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
+        pwdEdt.setOnEditorActionListener((v, actionId, event) -> {
+            boolean handled = false;
+            if (actionId == EditorInfo.IME_ACTION_DONE) {
+                if (idInputLayout.getError() == null && pwdInputLayout.getError() == null && nextBtn.isEnabled()) {
+                    //dataRepo.nukeAllTable();
+                    //dataRepo.insertNewUser(new User(IDEdt.getText().toString(), pwdEdt.getText().toString()));
+                    startActivity(mainIntent);
+                }
+                handled = true;
+            }
+            return handled;
+        });
+
+        backBtn.setOnClickListener(v -> finish());
+        nextBtn.setOnClickListener(v -> {
+            if (idInputLayout.getError() == null && pwdInputLayout.getError() == null) {
+                dataRepo.nukeAllTable();
+                dataRepo.insertNewUser(new User(IDEdt.getText().toString(), pwdEdt.getText().toString()));
+                startActivity(mainIntent);
             }
         });
     }

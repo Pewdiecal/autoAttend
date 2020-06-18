@@ -24,8 +24,18 @@ public interface DAOs {
     @Delete
     void deleteSubject(Subject subject);
 
-    @Query("SELECT * FROM user_credentials WHERE email = 'test24' ")
-    User getAllData();
+    @Query("SELECT student_id FROM user_credentials WHERE student_id = '123456'")
+    User getUserCredential();
 
+    @Query("DELETE FROM user_credentials")
+    void nukeTableUserCredentials();
 
+    @Query("DELETE FROM session_schedule")
+    public void nukeTableSessionSchedule();
+
+    @Query("DELETE FROM subject")
+    public void nukeTableSubject();
+
+    @Query("DELETE FROM class_session")
+    public void nukeTableClassSession();
 }
