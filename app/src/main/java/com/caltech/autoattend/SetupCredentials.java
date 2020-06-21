@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
 
@@ -20,7 +21,9 @@ public class SetupCredentials extends AppCompatActivity {
     EditText pwdEdt;
     Button nextBtn;
     Button backBtn;
-    DataRepo dataRepo;
+    User user;
+    Intent mainIntent;
+    SetupCredentialsViewModel credentialsViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,8 +36,17 @@ public class SetupCredentials extends AppCompatActivity {
         pwdEdt = findViewById(R.id.pwdedt_setup);
         nextBtn = findViewById(R.id.setup_nextbtn);
         backBtn = findViewById(R.id.setup_backbtn);
-        dataRepo = new DataRepo(getApplication());
-        Intent mainIntent = new Intent(SetupCredentials.this, ScheduleSetup.class);
+        mainIntent = new Intent(SetupCredentials.this, ScheduleSetup.class);
+        credentialsViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(SetupCredentialsViewModel.class);
+
+        credentialsViewModel.getUserCredentials().observe(this, user -> SetupCredentials.this.user = user);
+
+        if (user != null) {
+            IDEdt.setText(user.student_id);
+            pwdEdt.setText(user.password);
+            nextBtn.setText(R.string.confirm_btn);
+        }
 
         nextBtn.setEnabled(false);
 
@@ -107,9 +119,14 @@ public class SetupCredentials extends AppCompatActivity {
             boolean handled = false;
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (idInputLayout.getError() == null && pwdInputLayout.getError() == null && nextBtn.isEnabled()) {
-                    //dataRepo.nukeAllTable();
-                    //dataRepo.insertNewUser(new User(IDEdt.getText().toString(), pwdEdt.getText().toString()));
-                    startActivity(mainIntent);
+                    if (user != null) {
+                        credentialsViewModel.updateUserCredential(IDEdt.getText().toString(), pwdEdt.getText().toString());
+                        finish();
+                    } else {
+                        credentialsViewModel.insertUserCredential(IDEdt.getText().toString(), pwdEdt.getText().toString());
+                        startActivity(mainIntent);
+                    }
+
                 }
                 handled = true;
             }
@@ -117,12 +134,19 @@ public class SetupCredentials extends AppCompatActivity {
         });
 
         backBtn.setOnClickListener(v -> finish());
+
         nextBtn.setOnClickListener(v -> {
             if (idInputLayout.getError() == null && pwdInputLayout.getError() == null) {
-                dataRepo.nukeAllTable();
-                dataRepo.insertNewUser(new User(IDEdt.getText().toString(), pwdEdt.getText().toString()));
-                startActivity(mainIntent);
+                if (user != null) {
+                    credentialsViewModel.updateUserCredential(IDEdt.getText().toString(), pwdEdt.getText().toString());
+                    finish();
+                } else {
+                    credentialsViewModel.insertUserCredential(IDEdt.getText().toString(), pwdEdt.getText().toString());
+                    startActivity(mainIntent);
+                }
+
             }
         });
+
     }
 }

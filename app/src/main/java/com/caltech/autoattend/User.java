@@ -1,16 +1,18 @@
 package com.caltech.autoattend;
 
-import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
-@Entity(tableName = "User_credentials", primaryKeys = "student_id")
+@Entity(tableName = "User_credentials", primaryKeys = "primaryKey")
 public class User {
-    @NonNull
+
+    public int primaryKey;
     public String student_id;
     public String password;
 
-    User(String student_id, String password) {
+    User(int primaryKey, String student_id, String password) {
+        this.primaryKey = primaryKey;
         this.student_id = student_id;
         this.password = password;
     }
+
 }

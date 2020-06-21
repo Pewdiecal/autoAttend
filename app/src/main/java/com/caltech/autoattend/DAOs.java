@@ -1,5 +1,6 @@
 package com.caltech.autoattend;
 
+import androidx.lifecycle.LiveData;
 import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
@@ -13,29 +14,54 @@ public interface DAOs {
     void insertUserCredential(User user);
 
     @Insert
-    void insertNewSubject(Subject subject, SessionSchedule sessionSchedule, ClassSession classSession);
+    void insertNewSubject(Subject subject);
+
+    @Insert
+    void insertNewSessionSchedule(SessionSchedule sessionSchedule);
+
+    @Insert
+    void insertNewClassSession(ClassSession classSession);
+
+    @Insert
+    void insertNewSemesterDate(SemesterDate semesterDate);
 
     @Update
     void updateUserCredential(User user);
 
     @Update
-    void updateSubject(Subject subject, SessionSchedule sessionSchedule, ClassSession classSession);
+    void updateSubject(Subject subject);
+
+    @Update
+    void updateSessionSchedule(SessionSchedule sessionSchedule);
+
+    @Update
+    void updateClassSession(ClassSession classSession);
+
+    @Update
+    void updateSemesterDate(SemesterDate semesterDate);
 
     @Delete
     void deleteSubject(Subject subject);
 
-    @Query("SELECT student_id FROM user_credentials WHERE student_id = '123456'")
-    User getUserCredential();
+    @Delete
+    void deleteSessionSchedule(SessionSchedule sessionSchedule);
 
-    @Query("DELETE FROM user_credentials")
-    void nukeTableUserCredentials();
+    @Delete
+    void deleteClassSession(ClassSession classSession);
 
-    @Query("DELETE FROM session_schedule")
-    public void nukeTableSessionSchedule();
+    @Query("SELECT * FROM User_credentials")
+    LiveData<User> getUserCredential();
 
-    @Query("DELETE FROM subject")
-    public void nukeTableSubject();
+    @Query("SELECT * FROM Subject")
+    LiveData<Subject> getSubject();
 
-    @Query("DELETE FROM class_session")
-    public void nukeTableClassSession();
+    @Query("SELECT * FROM Session_schedule")
+    LiveData<SessionSchedule> getSessionSchedule();
+
+    @Query("SELECT * FROM Class_session")
+    LiveData<ClassSession> getClassSession();
+
+    @Query("SELECT * FROM Semester_date")
+    LiveData<SemesterDate> getSemesterDate();
+
 }

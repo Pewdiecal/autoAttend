@@ -8,11 +8,11 @@
 
     <TextView
         android:id="@+id/textView8"
-        android:layout_width="wrap_content"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:alpha="0.87"
         android:fontFamily="@font/roboto_bold"
         android:text="@string/schedule_setup"
@@ -21,6 +21,7 @@
         android:textSize="34sp"
         app:layout_constraintBottom_toTopOf="@+id/textView9"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/imageView6" />
 
@@ -29,15 +30,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
         android:layout_marginEnd="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:contentDescription="@string/schedule_setup"
         app:layout_constraintBottom_toTopOf="@+id/textView8"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.26"
+        app:layout_constraintVertical_bias="0.25"
         app:layout_constraintVertical_chainStyle="packed"
         app:srcCompat="@drawable/ic_calendar" />
 
@@ -47,58 +48,69 @@
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
         android:alpha="0.6"
         android:fontFamily="@font/roboto_medium"
         android:text="@string/schedule_description"
         android:textAlignment="center"
         android:textColor="#000000"
         android:textSize="15sp"
-        app:layout_constraintBottom_toTopOf="@+id/start_date_txt"
+        app:layout_constraintBottom_toTopOf="@+id/startDateInputLayout"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView8" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/end_date_txt"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="10dp"
-        android:layout_marginEnd="20dp"
-        android:hint="@string/schedule_end_date"
-        app:layout_constraintBottom_toBottomOf="@+id/start_date_txt"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/start_date_txt"
-        app:layout_constraintTop_toTopOf="@+id/start_date_txt">
-
-        <AutoCompleteTextView
-            android:id="@+id/end_date_spinner"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/start_date_txt"
+        android:id="@+id/startDateInputLayout"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="10dp"
-        android:layout_marginBottom="20dp"
-        android:hint="@string/schedule_start_date"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/end_date_txt"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
+        app:endIconMode="custom"
+        app:layout_constraintBottom_toTopOf="@+id/endDateInputLayout"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintHorizontal_chainStyle="packed"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView9">
+        app:layout_constraintTop_toBottomOf="@+id/textView9"
+        app:startIconDrawable="@drawable/ic_baseline_date_range_24">
 
         <AutoCompleteTextView
-            android:id="@+id/start_date_spinner"
+            android:id="@+id/startDateTxt"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" />
+            android:layout_height="wrap_content"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:hint="@string/schedule_start_date" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/endDateInputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="10dp"
+        app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
+        app:endIconMode="custom"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/startDateInputLayout"
+        app:startIconDrawable="@drawable/ic_baseline_date_range_24">
+
+        <AutoCompleteTextView
+            android:id="@+id/endDateTxt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cursorVisible="false"
+            android:focusable="false"
+            android:hint="@string/schedule_end_date" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
@@ -107,7 +119,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
-        android:layout_marginBottom="20dp"
+        android:layout_marginBottom="10dp"
         android:text="@string/back_btn"
         android:textColor="@color/secondaryColor"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -115,17 +127,16 @@
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintHorizontal_chainStyle="spread_inside"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/start_date_txt"
+        app:layout_constraintTop_toBottomOf="@+id/endDateInputLayout"
         app:layout_constraintVertical_bias="1.0" />
 
     <Button
         android:id="@+id/schedule_finishbtn"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
+        style="@style/Widget.MaterialComponents.Button"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="20dp"
         android:text="@string/schedule_finish_btn"
-        android:textColor="@color/secondaryColor"
         app:layout_constraintBottom_toBottomOf="@+id/schedule_backbtn"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"

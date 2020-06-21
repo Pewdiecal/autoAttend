@@ -21,11 +21,12 @@
     <string name="credential_setup">Credential Setup</string>
     <string name="next_btn">Next</string>
     <string name="back_btn">Back</string>
+    <string name="confirm_btn">Confirm</string>
 
     <string name="schedule_setup">Schedule Setup</string>
     <string name="schedule_description">Choose the starting and ending date of your semester.</string>
-    <string name="schedule_start_date">Begin</string>
-    <string name="schedule_end_date">End</string>
+    <string name="schedule_start_date">Start Date</string>
+    <string name="schedule_end_date">End Date</string>
     <string name="schedule_finish_btn">Finish</string>
 
     <string name="addSub_title">Add New Class</string>

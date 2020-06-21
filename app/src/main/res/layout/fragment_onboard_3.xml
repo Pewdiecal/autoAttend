@@ -52,6 +52,7 @@
             android:id="@+id/imageView3"
             android:layout_width="278dp"
             android:layout_height="297dp"
+            android:contentDescription="@string/frag_3_h1"
             android:src="@drawable/ic_new_alert"
             app:layout_constraintBottom_toTopOf="@+id/textView6"
             app:layout_constraintEnd_toEndOf="parent"

@@ -7,12 +7,12 @@ import android.os.Handler;
 import android.view.WindowManager;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProvider;
 
 public class MainActivity extends AppCompatActivity {
-    /**
-     * Duration of wait
-     **/
-    private final int SPLASH_DISPLAY_LENGTH = 1000;
+    private MainActivityViewModel mainActivityViewModel;
+    private User user;
+    private SemesterDate semesterDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,17 +21,35 @@ public class MainActivity extends AppCompatActivity {
                 WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
         setContentView(R.layout.activity_main);
+        mainActivityViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(MainActivityViewModel.class);
 
-        /* New Handler to start the Menu-Activity
-         * and close this Splash-Screen after some seconds.*/
+        mainActivityViewModel.getUserCredentials().observe(this, user -> MainActivity.this.user = user);
+
+        mainActivityViewModel.getSemesterDate().observe(this, semesterDate -> MainActivity.this.semesterDate = semesterDate);
+
+        int SPLASH_DISPLAY_LENGTH = 1000;
         new Handler().postDelayed(() -> {
             /* Create an Intent that will start the Menu-Activity. */
-            Intent mainIntent = new Intent(MainActivity.this, Onboard.class);
 
-            ActivityOptions options =
-                    ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
-            startActivity(mainIntent, options.toBundle());
+            if (user != null && semesterDate != null) {
+
+                Intent mainIntent = new Intent(MainActivity.this, SubjectList.class);
+
+                ActivityOptions options =
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
+                startActivity(mainIntent, options.toBundle());
+            } else {
+                mainActivityViewModel.nukeAllTable();
+
+                Intent mainIntent = new Intent(MainActivity.this, Onboard.class);
+
+                ActivityOptions options =
+                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
+                startActivity(mainIntent, options.toBundle());
+            }
             finish();
+
         }, SPLASH_DISPLAY_LENGTH);
     }
 

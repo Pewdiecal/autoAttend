@@ -9,15 +9,15 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(version = 1, entities = {User.class, Subject.class, ClassSession.class, SessionSchedule.class}, exportSchema = false)
+@Database(version = 1, entities = {User.class, Subject.class, ClassSession.class, SessionSchedule.class, SemesterDate.class})
 public abstract class DataStorage extends RoomDatabase {
 
-    private static DataStorage INSTANCE;
-    private static final int NUMBER_OF_THREADS = 1;
+    public abstract DAOs daos();
+
+    private static volatile DataStorage INSTANCE;
+    private static final int NUMBER_OF_THREADS = 5;
     static final ExecutorService databaseWriteExecutor =
             Executors.newFixedThreadPool(NUMBER_OF_THREADS);
-
-    public abstract DAOs daos();
 
     static DataStorage getInstance(final Context context) {
         if (INSTANCE == null) {
