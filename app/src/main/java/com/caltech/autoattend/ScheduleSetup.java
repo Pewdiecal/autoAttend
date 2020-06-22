@@ -76,7 +76,7 @@ public class ScheduleSetup extends AppCompatActivity {
             if (!viewModel.insertDate(startDateTxt.getText().toString(), endDateTxt.getText().toString())) {
                 Toast.makeText(getApplicationContext(), "Invalid date input. Try again", Toast.LENGTH_LONG).show();
             } else {
-                Intent mainIntent = new Intent(ScheduleSetup.this, SubjectList.class);
+                Intent mainIntent = new Intent(ScheduleSetup.this, MainActivity.class);
 
                 ActivityOptions options =
                         ActivityOptions.makeSceneTransitionAnimation(ScheduleSetup.this);

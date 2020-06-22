@@ -1,57 +1,44 @@
 package com.caltech.autoattend;
 
-import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.view.WindowManager;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.ViewModelProvider;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class MainActivity extends AppCompatActivity {
-    private MainActivityViewModel mainActivityViewModel;
-    private User user;
-    private SemesterDate semesterDate;
+
+    int backCounter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
-                WindowManager.LayoutParams.FLAG_FULLSCREEN);
-
         setContentView(R.layout.activity_main);
-        mainActivityViewModel = new ViewModelProvider(this,
-                new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(MainActivityViewModel.class);
 
-        mainActivityViewModel.getUserCredentials().observe(this, user -> MainActivity.this.user = user);
-
-        mainActivityViewModel.getSemesterDate().observe(this, semesterDate -> MainActivity.this.semesterDate = semesterDate);
-
-        int SPLASH_DISPLAY_LENGTH = 1000;
-        new Handler().postDelayed(() -> {
-            /* Create an Intent that will start the Menu-Activity. */
-
-            if (user != null && semesterDate != null) {
-
-                Intent mainIntent = new Intent(MainActivity.this, SubjectList.class);
-
-                ActivityOptions options =
-                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
-                startActivity(mainIntent, options.toBundle());
-            } else {
-                mainActivityViewModel.nukeAllTable();
-
-                Intent mainIntent = new Intent(MainActivity.this, Onboard.class);
-
-                ActivityOptions options =
-                        ActivityOptions.makeSceneTransitionAnimation(MainActivity.this);
-                startActivity(mainIntent, options.toBundle());
+        Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                backCounter = 0;
             }
-            finish();
+        }, 2000, 2000);
 
-        }, SPLASH_DISPLAY_LENGTH);
     }
 
+    @Override
+    public void onBackPressed() {
 
+        if (backCounter == 1) {
+            Intent a = new Intent(Intent.ACTION_MAIN);
+            a.addCategory(Intent.CATEGORY_HOME);
+            a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            startActivity(a);
+        } else {
+            Toast.makeText(this, "Press back again to exit.", Toast.LENGTH_SHORT).show();
+        }
+        backCounter++;
+    }
 }
