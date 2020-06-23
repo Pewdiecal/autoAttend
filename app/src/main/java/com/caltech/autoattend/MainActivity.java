@@ -2,9 +2,13 @@ package com.caltech.autoattend;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.bottomappbar.BottomAppBar;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,11 +16,14 @@ import java.util.TimerTask;
 public class MainActivity extends AppCompatActivity {
 
     int backCounter;
+    BottomAppBar bottomAppBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        bottomAppBar = findViewById(R.id.bottomAppBar4);
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -25,6 +32,18 @@ public class MainActivity extends AppCompatActivity {
                 backCounter = 0;
             }
         }, 2000, 2000);
+
+        bottomAppBar.setNavigationOnClickListener(v -> BottomSheet.newInstance().show(getSupportFragmentManager(), "bottom_sheet_menu"));
+
+        bottomAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+
+                }
+                return false;
+            }
+        });
 
     }
 
@@ -41,4 +60,5 @@ public class MainActivity extends AppCompatActivity {
         }
         backCounter++;
     }
+
 }
