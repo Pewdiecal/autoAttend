@@ -2,11 +2,10 @@ package com.caltech.autoattend;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
+import androidx.viewpager2.widget.ViewPager2;
 
 import com.google.android.material.bottomappbar.BottomAppBar;
 
@@ -17,6 +16,8 @@ public class MainActivity extends AppCompatActivity {
 
     int backCounter;
     BottomAppBar bottomAppBar;
+    ViewPager2 viewPager2;
+    MainFragmentAdapter mainFragmentAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,9 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         bottomAppBar = findViewById(R.id.bottomAppBar4);
+        viewPager2 = findViewById(R.id.host_viewPager2);
+        mainFragmentAdapter = new MainFragmentAdapter(this);
+        viewPager2.setAdapter(mainFragmentAdapter);
 
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
@@ -35,14 +39,11 @@ public class MainActivity extends AppCompatActivity {
 
         bottomAppBar.setNavigationOnClickListener(v -> BottomSheet.newInstance().show(getSupportFragmentManager(), "bottom_sheet_menu"));
 
-        bottomAppBar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
-            @Override
-            public boolean onMenuItemClick(MenuItem item) {
-                switch (item.getItemId()) {
+        bottomAppBar.setOnMenuItemClickListener(item -> {
+            switch (item.getItemId()) {
 
-                }
-                return false;
             }
+            return false;
         });
 
     }

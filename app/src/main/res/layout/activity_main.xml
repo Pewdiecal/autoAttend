@@ -17,6 +17,11 @@
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0">
 
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/host_viewPager2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
         <com.google.android.material.bottomappbar.BottomAppBar
             android:id="@+id/bottomAppBar4"
             style="@style/Widget.MaterialComponents.BottomAppBar.Colored"

@@ -4,13 +4,16 @@ import android.app.Application;
 
 import androidx.lifecycle.LiveData;
 
+import java.util.List;
+
 public class DataRepo {
 
     private DAOs daOs;
     private Application application;
     private LiveData<User> user_credential;
     private LiveData<Subject> subject;
-    private LiveData<SessionSchedule> sessionSchedule;
+    private LiveData<List<Subject>> allSubject;
+    private LiveData<List<SessionSchedule>> sessionSchedule;
     private LiveData<ClassSession> classSession;
     private LiveData<SemesterDate> semesterDate;
 
@@ -19,9 +22,7 @@ public class DataRepo {
         this.application = application;
         daOs = dataStorage.daos();
         user_credential = daOs.getUserCredential();
-        subject = daOs.getSubject();
-        sessionSchedule = daOs.getSessionSchedule();
-        classSession = daOs.getClassSession();
+        allSubject = daOs.getAllSubject();
         semesterDate = daOs.getSemesterDate();
 
     }
@@ -82,15 +83,22 @@ public class DataRepo {
         return user_credential;
     }
 
-    public LiveData<Subject> getSubject() {
+    public LiveData<Subject> getSubject(String sub_name) {
+        subject = daOs.getSubject(sub_name);
         return subject;
     }
 
-    public LiveData<SessionSchedule> getSessionSchedule() {
+    public LiveData<List<Subject>> getAllSubject() {
+        return allSubject;
+    }
+
+    public LiveData<List<SessionSchedule>> getSessionSchedule(String session_id, String sub_name) {
+        sessionSchedule = daOs.getSessionSchedule(session_id, sub_name);
         return sessionSchedule;
     }
 
-    public LiveData<ClassSession> getClassSession() {
+    public LiveData<ClassSession> getClassSession(String class_session_id) {
+        classSession = daOs.getClassSession(class_session_id);
         return classSession;
     }
 

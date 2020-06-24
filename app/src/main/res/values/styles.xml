@@ -22,7 +22,7 @@
 
     <style name="ShapeAppearanceOverlay.Nav" parent="">
         <item name="cornerFamily">rounded</item>
-        <item name="cornerSize">8dp</item>
+        <item name="cornerSize">20dp</item>
     </style>
 
     <style name="AppTheme.NoActionBar">

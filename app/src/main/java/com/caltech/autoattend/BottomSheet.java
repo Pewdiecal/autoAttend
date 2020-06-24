@@ -45,8 +45,6 @@ public class BottomSheet extends BottomSheetDialogFragment {
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
-                item.setChecked(true);
                 return false;
             }
         });

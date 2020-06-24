@@ -9,7 +9,7 @@ import androidx.room.RoomDatabase;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-@Database(version = 1, entities = {User.class, Subject.class, ClassSession.class, SessionSchedule.class, SemesterDate.class})
+@Database(version = 1, entities = {User.class, Subject.class, ClassSession.class, SessionSchedule.class, SemesterDate.class}, exportSchema = false)
 public abstract class DataStorage extends RoomDatabase {
 
     public abstract DAOs daos();

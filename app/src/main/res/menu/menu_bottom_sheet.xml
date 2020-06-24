@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
-    <item
-        android:id="@+id/menu_subject_list"
-        android:icon="@drawable/ic_baseline_subject_24"
-        android:title="@string/bottom_sheet_subject_list" />
-    <item
-        android:id="@+id/menu_history"
-        android:icon="@drawable/ic_baseline_history_24"
-        android:title="@string/bottom_sheet_history" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/menu_subject_list"
+            android:icon="@drawable/ic_baseline_subject_24"
+            android:title="@string/bottom_sheet_subject_list" />
+        <item
+            android:id="@+id/menu_history"
+            android:icon="@drawable/ic_baseline_history_24"
+            android:title="@string/bottom_sheet_history" />
+    </group>
 </menu>

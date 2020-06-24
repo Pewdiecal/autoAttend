@@ -7,6 +7,8 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import java.util.List;
+
 @Dao
 public interface DAOs {
 
@@ -52,14 +54,17 @@ public interface DAOs {
     @Query("SELECT * FROM User_credentials")
     LiveData<User> getUserCredential();
 
+    @Query("SELECT * FROM Subject WHERE sub_name = :sub_name")
+    LiveData<Subject> getSubject(String sub_name);
+
     @Query("SELECT * FROM Subject")
-    LiveData<Subject> getSubject();
+    LiveData<List<Subject>> getAllSubject();
 
-    @Query("SELECT * FROM Session_schedule")
-    LiveData<SessionSchedule> getSessionSchedule();
+    @Query("SELECT * FROM Session_schedule WHERE session_id = :session_id OR sub_name = :sub_name")
+    LiveData<List<SessionSchedule>> getSessionSchedule(String session_id, String sub_name);
 
-    @Query("SELECT * FROM Class_session")
-    LiveData<ClassSession> getClassSession();
+    @Query("SELECT * FROM Class_session WHERE class_session_id = :class_session_id")
+    LiveData<ClassSession> getClassSession(String class_session_id);
 
     @Query("SELECT * FROM Semester_date")
     LiveData<SemesterDate> getSemesterDate();
