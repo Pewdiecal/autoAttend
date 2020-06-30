@@ -40,6 +40,43 @@
     <string name="addSub_attendanceLink">Attendance Link</string>
     <string name="addSub_scanQR">Scan QR</string>
     <string name="addSub_chooseColor">Choose a color</string>
+    <string name="addSub_alertDialog_msg">This subject is already exists. Add this class session to the existing subject?</string>
+    <string name="addSub_alertDialog_merge">MERGE</string>
+    <string name="addSub_alertDialog_duplicate">DUPLICATE</string>
+    <string name="addSub_monday">Monday</string>
+    <string name="addSub_tues">Tuesday</string>
+    <string name="addSub_wed">Wednesday</string>
+    <string name="addSub_thu">Thursday</string>
+    <string name="addSub_fri">Friday</string>
+    <string name="addSub_lec">Lecture</string>
+    <string name="addSub_tut">Tutorial</string>
+    <string name="addSub_lab">Lab</string>
+    <string name="addSub_redColor">Red</string>
+    <string name="addSub_pinkColor">Pink</string>
+    <string name="addSub_purpleColor">Purple</string>
+    <string name="addSub_indigoColor">Indigo</string>
+    <string name="addSub_blueColor">Blue</string>
+    <string name="addSub_cyanColor">Cyan</string>
+    <string name="addSub_tealColor">Teal</string>
+    <string name="addSub_orangeColor">Orange</string>
+    <string name="addSub_amberColor">Amber</string>
+    <string name="addSub_blueGreyColor">Blue Grey</string>
+    <string name="addSub_colorIcon">Color Icon</string>
+
+    <string name="QRScan_title">Scan QR code</string>
+    <string name="QRScan_alertDialog_OK_btn">OK</string>
+    <string name="QRScan_alertDialog_msg">Permission to use the camera is rejected.</string>
+
+    <string name="pink">#e91e63</string>
+    <string name="red">#f44336</string>
+    <string name="purple">#9c27b0</string>
+    <string name="indigo">#3f51b5</string>
+    <string name="blue">#2196f3</string>
+    <string name="cyan">#00bcd4</string>
+    <string name="teal">#009688</string>
+    <string name="orange">#ff5722</string>
+    <string name="amber">#ffc107</string>
+    <string name="blueGrey">#607d8b</string>
 
     <string name="main_settings">Settings</string>
     <string name="main_search">Search</string>

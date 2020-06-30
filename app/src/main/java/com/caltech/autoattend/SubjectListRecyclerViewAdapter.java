@@ -58,8 +58,8 @@ public class SubjectListRecyclerViewAdapter extends RecyclerView.Adapter<Subject
         TextView title = holder.subjectTitle;
         TextView signInStats = holder.lastSignIn;
         int STROKE_WIDTH = 8;
-        holder.gradientDrawable.setStroke(STROKE_WIDTH, Color.parseColor(subjectList.get(0).color));
-        title.setText(subjectList.get(0).sub_name);
+        holder.gradientDrawable.setStroke(STROKE_WIDTH, Color.parseColor(subjectList.get(position).colorHex));
+        title.setText(subjectList.get(position).sub_name);
         signInStats.setText("LAST SIGN IN");
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override

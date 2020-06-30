@@ -21,8 +21,8 @@ public class SetupCredentialsViewModel extends AndroidViewModel {
         dataRepo.insertNewUser(new User(1, stu_id, pwd));
     }
 
-    public void updateUserCredential(String stu_id, String pwd) {
-        dataRepo.updateUserCredential(new User(1, stu_id, pwd));
+    public void updateUserCredential(User user) {
+        dataRepo.updateUserCredential(user);
 
     }
 

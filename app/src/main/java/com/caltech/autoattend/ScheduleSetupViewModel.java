@@ -22,7 +22,7 @@ public class ScheduleSetupViewModel extends AndroidViewModel {
         semesterDate = dataRepo.getSemesterDate();
     }
 
-    public boolean insertDate(String strDateStart, String strDateEnd) {
+    public boolean checkDate(String strDateStart, String strDateEnd) {
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
         Date dateStart = null;
         Date dateEnd = null;
@@ -35,12 +35,15 @@ public class ScheduleSetupViewModel extends AndroidViewModel {
             e.printStackTrace();
         }
 
-        if (!dateEnd.before(dateStart) && !dateEnd.before(dateSystem)) {
-            dataRepo.insertNewSemesterDate(new SemesterDate(1, strDateStart, strDateEnd));
-            return true;
-        } else {
-            return false;
-        }
+        return !dateEnd.before(dateStart) && !dateEnd.before(dateSystem);
+    }
+
+    public void insertNewSemesterDate(String strDateStart, String strDateEnd) {
+        dataRepo.insertNewSemesterDate(new SemesterDate(1, strDateStart, strDateEnd));
+    }
+
+    public void updateSemesterDate(SemesterDate semesterDate) {
+        dataRepo.updateSemesterDate(semesterDate);
     }
 
     public LiveData<SemesterDate> getSemesterDate() {

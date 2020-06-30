@@ -120,7 +120,9 @@ public class SetupCredentials extends AppCompatActivity {
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 if (idInputLayout.getError() == null && pwdInputLayout.getError() == null && nextBtn.isEnabled()) {
                     if (user != null) {
-                        credentialsViewModel.updateUserCredential(IDEdt.getText().toString(), pwdEdt.getText().toString());
+                        user.student_id = IDEdt.getText().toString();
+                        user.password = pwdEdt.getText().toString();
+                        credentialsViewModel.updateUserCredential(user);
                         finish();
                     } else {
                         credentialsViewModel.insertUserCredential(IDEdt.getText().toString(), pwdEdt.getText().toString());
@@ -138,7 +140,9 @@ public class SetupCredentials extends AppCompatActivity {
         nextBtn.setOnClickListener(v -> {
             if (idInputLayout.getError() == null && pwdInputLayout.getError() == null) {
                 if (user != null) {
-                    credentialsViewModel.updateUserCredential(IDEdt.getText().toString(), pwdEdt.getText().toString());
+                    user.student_id = IDEdt.getText().toString();
+                    user.password = pwdEdt.getText().toString();
+                    credentialsViewModel.updateUserCredential(user);
                     finish();
                 } else {
                     credentialsViewModel.insertUserCredential(IDEdt.getText().toString(), pwdEdt.getText().toString());

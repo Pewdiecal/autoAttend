@@ -92,6 +92,19 @@ public class MainActivity extends AppCompatActivity {
             startActivity(mainIntent);
         });
 
+        qrCodeFab.setOnClickListener(v -> {
+            qrCodeLayout.setVisibility(View.GONE);
+            linkLayout.setVisibility(View.GONE);
+            mainAddFab.startAnimation(fabHide);
+            qrCodeLayout.startAnimation(fabFadeOut);
+            linkLayout.startAnimation(fabFadeOut);
+            Intent mainIntent = new Intent(this, QRScannerActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("ActivitySource", "qrCodeFab");
+            mainIntent.putExtras(bundle);
+            startActivity(mainIntent);
+        });
+
 
     }
 

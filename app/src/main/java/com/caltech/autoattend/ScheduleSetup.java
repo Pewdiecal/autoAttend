@@ -73,9 +73,16 @@ public class ScheduleSetup extends AppCompatActivity {
         backBtn.setOnClickListener(v -> finish());
 
         finishBtn.setOnClickListener(v -> {
-            if (!viewModel.insertDate(startDateTxt.getText().toString(), endDateTxt.getText().toString())) {
+            if (!viewModel.checkDate(startDateTxt.getText().toString(), endDateTxt.getText().toString())) {
                 Toast.makeText(getApplicationContext(), "Invalid date input. Try again", Toast.LENGTH_LONG).show();
             } else {
+                if (semesterDate != null) {
+                    semesterDate.startDate = startDateTxt.getText().toString();
+                    semesterDate.endDate = endDateTxt.getText().toString();
+                    viewModel.updateSemesterDate(semesterDate);
+                } else {
+                    viewModel.insertNewSemesterDate(startDateTxt.getText().toString(), endDateTxt.getText().toString());
+                }
                 Intent mainIntent = new Intent(ScheduleSetup.this, MainActivity.class);
 
                 ActivityOptions options =

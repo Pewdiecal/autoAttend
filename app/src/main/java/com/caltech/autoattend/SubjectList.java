@@ -13,6 +13,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class SubjectList extends Fragment {
@@ -21,6 +22,7 @@ public class SubjectList extends Fragment {
     SubjectListRecyclerViewAdapter mAdapter;
     SubjectListViewModel mViewModel;
     LiveData<List<Subject>> allSubject;
+    ArrayList<Subject> nonDuplicateSubjectList = new ArrayList<>();
 
     public static SubjectList newInstance() {
         return new SubjectList();
@@ -35,11 +37,21 @@ public class SubjectList extends Fragment {
                 new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(SubjectListViewModel.class);
 
         mViewModel.getAllSubject().observe(getActivity(), subjects -> {
+            nonDuplicateSubjectList.clear();
+
+            for (Subject subject : subjects) {
+                if (nonDuplicateSubjectList.isEmpty()) {
+                    nonDuplicateSubjectList.add(subject);
+                } else if (!nonDuplicateSubjectList.get(nonDuplicateSubjectList.size() - 1).sub_name.equals(subject.sub_name)) {
+                    nonDuplicateSubjectList.add(subject);
+                }
+            }
+
             if (mAdapter == null) {
-                mAdapter = new SubjectListRecyclerViewAdapter(subjects);
+                mAdapter = new SubjectListRecyclerViewAdapter(nonDuplicateSubjectList);
                 recyclerView.setAdapter(mAdapter);
             } else {
-                mAdapter.updateData(subjects);
+                mAdapter.updateData(nonDuplicateSubjectList);
             }
 
         });

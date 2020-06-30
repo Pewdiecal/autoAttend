@@ -41,18 +41,23 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
+                android:layout_marginBottom="10dp"
                 android:hint="@string/addSub_chooseColor"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/linkInputLayout_addSub">
+                app:layout_constraintTop_toBottomOf="@+id/linkInputLayout_addSub"
+                app:startIconDrawable="@drawable/ic_baseline_color_lens_24">
 
                 <AutoCompleteTextView
                     android:id="@+id/color_spinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:cursorVisible="false"
+                    android:focusable="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <Button
@@ -74,7 +79,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginTop="15dp"
+                android:layout_marginTop="10dp"
                 android:layout_marginEnd="20dp"
                 app:errorEnabled="true"
                 app:layout_constraintBottom_toTopOf="@+id/classInputLayout_addSub"
@@ -90,7 +95,8 @@
                     android:id="@+id/subjectedt_addSub"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/addSub_subName" />
+                    android:hint="@string/addSub_subName"
+                    android:inputType="text" />
 
             </com.google.android.material.textfield.TextInputLayout>
 
@@ -99,18 +105,26 @@
                 style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
                 android:hint="@string/addSub_endTime"
-                app:layout_constraintBottom_toBottomOf="@+id/timeStart_txt"
+                app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
+                app:endIconMode="custom"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/linkInputLayout_addSub"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintStart_toEndOf="@+id/timeStart_txt"
-                app:layout_constraintTop_toTopOf="@+id/timeStart_txt">
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/timeStart_txt"
+                app:startIconDrawable="@drawable/ic_baseline_access_time_24">
 
                 <AutoCompleteTextView
                     android:id="@+id/timeEnd_spinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:cursorVisible="false"
+                    android:focusable="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -119,19 +133,24 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
-                android:layout_marginBottom="15dp"
                 android:hint="@string/addSub_day"
+                app:errorEnabled="true"
                 app:layout_constraintBottom_toTopOf="@+id/timeStart_txt"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/classInputLayout_addSub">
+                app:layout_constraintTop_toBottomOf="@+id/classInputLayout_addSub"
+                app:startIconDrawable="@drawable/ic_baseline_date_range_24">
 
                 <AutoCompleteTextView
                     android:id="@+id/day_spinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:cursorVisible="false"
+                    android:focusable="false"
+                    android:inputType="none" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -140,19 +159,25 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
-                android:layout_marginEnd="10dp"
-                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginEnd="20dp"
                 android:hint="@string/addSub_startTime"
-                app:layout_constraintBottom_toTopOf="@+id/linkInputLayout_addSub"
-                app:layout_constraintEnd_toStartOf="@+id/timeEnd_txt"
+                app:endIconDrawable="@drawable/ic_baseline_arrow_drop_down_24"
+                app:endIconMode="custom"
+                app:errorEnabled="true"
+                app:layout_constraintBottom_toTopOf="@+id/timeEnd_txt"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/day_txt">
+                app:layout_constraintTop_toBottomOf="@+id/day_txt"
+                app:startIconDrawable="@drawable/ic_baseline_access_time_24">
 
                 <AutoCompleteTextView
                     android:id="@+id/timeStart_spinner"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="wrap_content"
+                    android:cursorVisible="false"
+                    android:focusable="false" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
@@ -161,28 +186,30 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
                 app:errorEnabled="true"
                 app:layout_constraintBottom_toTopOf="@+id/color_txt"
                 app:layout_constraintEnd_toStartOf="@+id/addSub_scanQRbtn"
                 app:layout_constraintHorizontal_bias="0.5"
-                app:layout_constraintHorizontal_chainStyle="packed"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/timeStart_txt"
+                app:layout_constraintTop_toBottomOf="@+id/timeEnd_txt"
                 app:startIconDrawable="@drawable/ic_baseline_link_24">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/linkedt_addSub"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/addSub_attendanceLink" />
+                    android:hint="@string/addSub_attendanceLink"
+                    android:inputType="text" />
             </com.google.android.material.textfield.TextInputLayout>
 
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/classInputLayout_addSub"
-                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+                style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
+                android:layout_marginTop="5dp"
                 android:layout_marginEnd="20dp"
                 app:errorEnabled="true"
                 app:layout_constraintBottom_toTopOf="@+id/day_txt"
@@ -192,11 +219,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/subjectInputLayout_addSub"
                 app:startIconDrawable="@drawable/ic_baseline_class_24">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/classedt_addSub"
+                <AutoCompleteTextView
+                    android:id="@+id/classSessionTxt"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="@string/addSub_classSession" />
+                    android:hint="@string/addSub_classSession"
+                    android:inputType="none"
+                    android:cursorVisible="false"
+                    android:focusable="false" />
+
             </com.google.android.material.textfield.TextInputLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
