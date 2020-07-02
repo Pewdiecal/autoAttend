@@ -1,8 +1,10 @@
 package com.caltech.autoattend;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -61,11 +63,13 @@ public class SubjectListRecyclerViewAdapter extends RecyclerView.Adapter<Subject
         holder.gradientDrawable.setStroke(STROKE_WIDTH, Color.parseColor(subjectList.get(position).colorHex));
         title.setText(subjectList.get(position).sub_name);
         signInStats.setText("LAST SIGN IN");
-        holder.cardView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
 
-            }
+        holder.cardView.setOnClickListener(v -> {
+            Intent intent = new Intent(v.getContext(), ClassDetailActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("Subject Name", subjectList.get(position).sub_name);
+            intent.putExtras(bundle);
+            v.getContext().startActivity(intent);
         });
     }
 

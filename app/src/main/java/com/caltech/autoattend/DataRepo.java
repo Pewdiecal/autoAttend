@@ -87,4 +87,7 @@ public class DataRepo {
         DataStorage.databaseWriteExecutor.execute(() -> DataStorage.getInstance(application).clearAllTables());
     }
 
+    public void updateSubject(String sub_name, String colorHex, String og_sub_name) {
+        DataStorage.databaseWriteExecutor.execute(() -> daOs.updateSubject(sub_name, colorHex, og_sub_name));
+    }
 }

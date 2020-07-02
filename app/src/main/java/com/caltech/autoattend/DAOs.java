@@ -51,11 +51,14 @@ public interface DAOs {
     @Query("SELECT * FROM Subject WHERE session_id = :session_id")
     LiveData<Subject> getSingleSession(String session_id);
 
-    @Query("SELECT * FROM Subject WHERE sub_name = :sub_name AND class_session = :class_session " +
-            "AND session_time_start = :session_time_start AND session_time_end = :session_time_end")
+    @Query("SELECT * FROM Subject WHERE (sub_name = :sub_name AND class_session = :class_session " +
+            "AND session_time_start = :session_time_start AND session_time_end = :session_time_end)")
     LiveData<Subject> checkSingleSession(String class_session, String session_time_start, String session_time_end, String sub_name);
 
     @Query("SELECT * FROM Subject WHERE sub_name = :sub_name")
     LiveData<List<Subject>> checkSubject(String sub_name);
+
+    @Query("UPDATE Subject SET sub_name = :sub_name, colorHex = :colorHex WHERE sub_name = :og_sub_name")
+    void updateSubject(String sub_name, String colorHex, String og_sub_name);
 
 }

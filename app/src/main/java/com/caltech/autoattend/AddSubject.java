@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
@@ -20,6 +21,7 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -51,6 +53,9 @@ public class AddSubject extends AppCompatActivity {
     LiveData<List<Subject>> liveData;
     SharedPreferences prefs;
     SharedPreferences.Editor editor;
+    String subName;
+    String sessionID;
+    Subject subject;
 
 
     @Override
@@ -79,16 +84,62 @@ public class AddSubject extends AppCompatActivity {
         editor.remove("attendance url");
         editor.commit();
 
-        Bundle bundle = getIntent().getExtras();
-        if (bundle != null) {
-            linkEdt.setText(bundle.getString("attendance url"));
-        }
-
         random = new Random();
         addSubjectViewModel = new ViewModelProvider(this,
                 new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(AddSubjectViewModel.class);
 
-        toolbar.setTitle(R.string.addSub_title);
+        Bundle bundle = getIntent().getExtras();
+        if (bundle != null) {
+            linkEdt.setText(bundle.getString("attendance url"));
+            subName = bundle.getString("Subject Name");
+            sessionID = bundle.getString("Session ID");
+        }
+
+        if (subName != null) {
+            timeEndInputLayout.setVisibility(View.GONE);
+            timeStartInputLayout.setVisibility(View.GONE);
+            linkInputLayout.setVisibility(View.GONE);
+            classInputLayout.setVisibility(View.GONE);
+            dayInputLayout.setVisibility(View.GONE);
+            scanQR.setVisibility(View.GONE);
+
+            addSubjectViewModel.getSubject(subName).observe(this, new Observer<List<Subject>>() {
+                @Override
+                public void onChanged(List<Subject> subjects) {
+                    if (subjects.size() != 0) {
+                        subjectEdt.setText(subjects.get(0).sub_name);
+                        colorTxt.setText(addSubjectViewModel.getColorName().get(subjects.get(0).colorHex), false);
+                    }
+
+                }
+            });
+            toolbar.setTitle(R.string.addSub_title2);
+
+        } else if (sessionID != null) {
+            toolbar.setTitle(R.string.addSub_title3);
+            subjectInputLayout.setEnabled(false);
+            colorInputLayout.setEnabled(false);
+
+            addSubjectViewModel.getSingleSession(sessionID).observe(this, new Observer<Subject>() {
+                @Override
+                public void onChanged(Subject subject) {
+                    if (subject != null) {
+                        subjectEdt.setText(subject.sub_name);
+                        colorTxt.setText(addSubjectViewModel.getColorName().get(subject.colorHex));
+                        classTxt.setText(subject.class_session, false);
+                        dayTxt.setText(subject.session_day, false);
+                        timeStartTxt.setText(subject.session_time_start, false);
+                        timeEndTxt.setText(subject.session_time_end, false);
+                        linkEdt.setText(subject.session_link);
+                        AddSubject.this.subject = subject;
+                    }
+                }
+            });
+
+        } else {
+            toolbar.setTitle(R.string.addSub_title);
+        }
+
         setSupportActionBar(toolbar);
 
         TimePickerDialog timeStartPickerDialog = new TimePickerDialog(this,
@@ -290,24 +341,28 @@ public class AddSubject extends AppCompatActivity {
 
                 session_id = new StringBuilder(subjectEdt.getText().toString()).append(classTxt.getText().toString()).append(random.nextInt(2000));
 
-                if (isErrorFree()) {
+
+                if (isErrorFree() && subName == null) {
                     if (toolbar.getTitle().equals(getString(R.string.addSub_title))) {
                         liveData = addSubjectViewModel.getSubject(subjectEdt.getText().toString());
 
                         liveData.observe(this, subjects -> {
                             if (subjects.size() != 0) {
 
-                                if (addSubjectViewModel.checkSingleSession(subjectEdt.getText().toString(), timeStartTxt.getText().toString(),
-                                        timeEndTxt.getText().toString(), subjectEdt.getText().toString())) {
+                                LiveData<Subject> listLiveData = addSubjectViewModel.checkSingleSession(classTxt.getText().toString(), timeStartTxt.getText().toString(),
+                                        timeEndTxt.getText().toString(), subjectEdt.getText().toString());
 
-                                    alertDialog(subjects.get(0));
-
-                                } else {
-                                    addSubjectViewModel.insertNewSubject(subjectEdt.getText().toString(), subjects.get(0).colorHex,
-                                            session_id.toString(), classTxt.getText().toString(), timeStartTxt.getText().toString(),
-                                            timeEndTxt.getText().toString(), dayTxt.getText().toString(), linkEdt.getText().toString());
-                                    finish();
-                                }
+                                listLiveData.observe(AddSubject.this, subject -> {
+                                    if (subject != null) {
+                                        alertDialog(subject);
+                                    } else {
+                                        addSubjectViewModel.insertNewSubject(subjectEdt.getText().toString(), subjects.get(0).colorHex,
+                                                session_id.toString(), classTxt.getText().toString(), timeStartTxt.getText().toString(),
+                                                timeEndTxt.getText().toString(), dayTxt.getText().toString(), linkEdt.getText().toString());
+                                        listLiveData.removeObservers(AddSubject.this);
+                                        finish();
+                                    }
+                                });
 
                             } else {
                                 addSubjectViewModel.insertNewSubject(subjectEdt.getText().toString(),
@@ -323,12 +378,19 @@ public class AddSubject extends AppCompatActivity {
 
                     } else {
 
-                        /*addSubjectViewModel.updateSubject(subject.get(0), session_id.toString(), classTxt.getText().toString(),
+                        addSubjectViewModel.updateSubject(subject, session_id.toString(), classTxt.getText().toString(),
                                 timeStartTxt.getText().toString(), timeEndTxt.getText().toString(), dayTxt.getText().toString(),
-                                addSubjectViewModel.getColorHex().get(colorTxt.getText().toString()), linkEdt.getText().toString());*/
+                                subject.colorHex, linkEdt.getText().toString());
+                        finish();
                     }
 
+                } else if (isErrorFree() && subName != null) {
+                    if (toolbar.getTitle().equals(getString(R.string.addSub_title2))) {
+                        addSubjectViewModel.updateSubject(subjectEdt.getText().toString(), addSubjectViewModel.getColorHex().get(colorTxt.getText().toString()), subName);
+                        finish();
+                    }
                 }
+
                 return true;
             default:
                 finish();
@@ -338,6 +400,7 @@ public class AddSubject extends AppCompatActivity {
     }
 
     public boolean isErrorFree() {
+
         if (subjectEdt.getText().toString().isEmpty()) {
             subjectInputLayout.setError("Subject cannot be empty");
         }
@@ -358,6 +421,14 @@ public class AddSubject extends AppCompatActivity {
         }
         if (linkEdt.getText().toString().isEmpty()) {
             linkInputLayout.setError("Link cannot be empty");
+        }
+
+        if (subName != null) {
+            classInputLayout.setError(null);
+            dayInputLayout.setError(null);
+            timeStartInputLayout.setError(null);
+            timeEndInputLayout.setError(null);
+            linkInputLayout.setError(null);
         }
 
         return subjectInputLayout.getError() == null && classInputLayout.getError() == null && colorInputLayout.getError() == null

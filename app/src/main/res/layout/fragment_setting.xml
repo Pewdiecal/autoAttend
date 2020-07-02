@@ -11,15 +11,31 @@
         android:layout_height="match_parent">
 
         <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/settingsRecyclerView"
             android:layout_width="0dp"
             android:layout_height="0dp"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
-            android:layout_marginEnd="20dp"
-            android:layout_marginBottom="20dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
             app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView11" />
+
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="10dp"
+            android:alpha="0.87"
+            android:fontFamily="@font/roboto_light"
+            android:text="@string/settings_heading"
+            android:textColor="#000000"
+            android:textSize="48sp"
+            app:layout_constraintBottom_toTopOf="@+id/settingsRecyclerView"
+            app:layout_constraintEnd_toEndOf="@+id/settingsRecyclerView"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="@+id/settingsRecyclerView"
             app:layout_constraintTop_toTopOf="parent" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

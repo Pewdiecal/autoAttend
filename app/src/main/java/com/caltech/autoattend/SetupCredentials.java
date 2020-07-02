@@ -40,13 +40,15 @@ public class SetupCredentials extends AppCompatActivity {
         credentialsViewModel = new ViewModelProvider(this,
                 new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(SetupCredentialsViewModel.class);
 
-        credentialsViewModel.getUserCredentials().observe(this, user -> SetupCredentials.this.user = user);
+        credentialsViewModel.getUserCredentials().observe(this, user -> {
 
-        if (user != null) {
-            IDEdt.setText(user.student_id);
-            pwdEdt.setText(user.password);
-            nextBtn.setText(R.string.confirm_btn);
-        }
+            SetupCredentials.this.user = user;
+            if (user != null) {
+                IDEdt.setText(user.student_id);
+                pwdEdt.setText(user.password);
+                nextBtn.setText(R.string.confirm_btn);
+            }
+        });
 
         nextBtn.setEnabled(false);
 

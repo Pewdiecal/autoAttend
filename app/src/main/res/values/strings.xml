@@ -30,6 +30,8 @@
     <string name="schedule_finish_btn">Finish</string>
 
     <string name="addSub_title">Add New Class</string>
+    <string name="addSub_title2">Edit Subject</string>
+    <string name="addSub_title3">Edit Session</string>
     <string name="addSub_subName">Subject Name</string>
     <string name="addSub_classSession">Class Session</string>
     <string name="addSub_fromDate">From Date</string>
@@ -67,6 +69,23 @@
     <string name="QRScan_alertDialog_OK_btn">OK</string>
     <string name="QRScan_alertDialog_msg">Permission to use the camera is rejected.</string>
 
+    <string name="SettingsFragments_CredentialSettings">Credential Setting</string>
+    <string name="SettingsFragments_FailSafeSettings">FailSafe Setting</string>
+    <string name="SettingsFragments_NotificationSettings">Notification Setting</string>
+    <string name="SettingsFragments_Help">Help</string>
+
+    <string name="FailSafeActivity_EnableFailSafe">Enable Fail Safe</string>
+    <string name="FailSafeActivity_switchDesc">When enabled, this app will reattempt to log in case of log in failure</string>
+    <string name="FailSafeActivity_intervalTime">Reattempt interval time</string>
+    <string name="FailSafeActivity_SuffixText">Seconds</string>
+    <string name="FailSafeActivity_timeInterval">Enter time interval</string>
+
+    <string name="NotificationActivity_attendance">Enable attendance notification</string>
+    <string name="NotificationActivity_desc">Get notified on all sign in status for all class</string>
+
+    <string name="classDetails_action_delete">DELETE</string>
+    <string name="classDetails_action_edit">EDIT</string>
+
     <string name="pink">#e91e63</string>
     <string name="red">#f44336</string>
     <string name="purple">#9c27b0</string>
@@ -89,6 +108,9 @@
     <string name="fab_qr">Add class with QR</string>
 
     <string name="subject_list_heading">Subjects</string>
+    <string name="settings_heading">Settings</string>
+
+
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>

@@ -24,10 +24,6 @@ public class SubjectList extends Fragment {
     LiveData<List<Subject>> allSubject;
     ArrayList<Subject> nonDuplicateSubjectList = new ArrayList<>();
 
-    public static SubjectList newInstance() {
-        return new SubjectList();
-    }
-
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
