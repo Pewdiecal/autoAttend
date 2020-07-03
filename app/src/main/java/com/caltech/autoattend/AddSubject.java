@@ -56,6 +56,7 @@ public class AddSubject extends AppCompatActivity {
     String subName;
     String sessionID;
     Subject subject;
+    String newSession;
 
 
     @Override
@@ -93,6 +94,7 @@ public class AddSubject extends AppCompatActivity {
             linkEdt.setText(bundle.getString("attendance url"));
             subName = bundle.getString("Subject Name");
             sessionID = bundle.getString("Session ID");
+            newSession = bundle.getString("New Session");
         }
 
         if (subName != null) {
@@ -136,11 +138,39 @@ public class AddSubject extends AppCompatActivity {
                 }
             });
 
+        } else if (newSession != null) {
+            addSubjectViewModel.getSubject(newSession).observe(this, new Observer<List<Subject>>() {
+                @Override
+                public void onChanged(List<Subject> subjects) {
+                    if (subjects.size() != 0) {
+                        subjectInputLayout.setEnabled(false);
+                        colorInputLayout.setEnabled(false);
+                        subjectEdt.setText(subjects.get(0).sub_name);
+                        colorTxt.setText(addSubjectViewModel.getColorName().get(subjects.get(0).colorHex), false);
+                    }
+
+                }
+            });
+            toolbar.setTitle(R.string.addSub_title4);
         } else {
             toolbar.setTitle(R.string.addSub_title);
         }
 
         setSupportActionBar(toolbar);
+
+        timeStartInputLayout.setErrorIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeStartInputLayout.setError(null);
+            }
+        });
+
+        timeEndInputLayout.setErrorIconOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                timeEndInputLayout.setError(null);
+            }
+        });
 
         TimePickerDialog timeStartPickerDialog = new TimePickerDialog(this,
                 (view, hourOfDay, minute) -> {
@@ -343,14 +373,14 @@ public class AddSubject extends AppCompatActivity {
 
 
                 if (isErrorFree() && subName == null) {
-                    if (toolbar.getTitle().equals(getString(R.string.addSub_title))) {
+                    if (toolbar.getTitle().equals(getString(R.string.addSub_title)) || toolbar.getTitle().equals(getString(R.string.addSub_title4))) {
                         liveData = addSubjectViewModel.getSubject(subjectEdt.getText().toString());
 
                         liveData.observe(this, subjects -> {
                             if (subjects.size() != 0) {
 
-                                LiveData<Subject> listLiveData = addSubjectViewModel.checkSingleSession(classTxt.getText().toString(), timeStartTxt.getText().toString(),
-                                        timeEndTxt.getText().toString(), subjectEdt.getText().toString());
+                                LiveData<Subject> listLiveData = addSubjectViewModel.checkSingleSession(classTxt.getText().toString(), dayTxt.getText().toString(),
+                                        timeStartTxt.getText().toString(), timeEndTxt.getText().toString(), subjectEdt.getText().toString());
 
                                 listLiveData.observe(AddSubject.this, subject -> {
                                     if (subject != null) {

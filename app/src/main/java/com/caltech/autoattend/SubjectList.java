@@ -36,11 +36,21 @@ public class SubjectList extends Fragment {
             nonDuplicateSubjectList.clear();
 
             for (Subject subject : subjects) {
+                boolean isElementExists = false;
                 if (nonDuplicateSubjectList.isEmpty()) {
                     nonDuplicateSubjectList.add(subject);
-                } else if (!nonDuplicateSubjectList.get(nonDuplicateSubjectList.size() - 1).sub_name.equals(subject.sub_name)) {
-                    nonDuplicateSubjectList.add(subject);
+                } else {
+                    for (int i = 0; i < nonDuplicateSubjectList.size(); i++) {
+                        if (!nonDuplicateSubjectList.get(i).sub_name.equals(subject.sub_name)) {
+                            if (i == nonDuplicateSubjectList.size() - 1 && !isElementExists) {
+                                nonDuplicateSubjectList.add(subject);
+                            }
+                        } else {
+                            isElementExists = true;
+                        }
+                    }
                 }
+
             }
 
             if (mAdapter == null) {

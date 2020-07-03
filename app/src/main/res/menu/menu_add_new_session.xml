@@ -2,8 +2,7 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
     <item
-        android:id="@+id/app_bar_settings"
-        android:title="@string/main_settings"
-        app:showAsAction="never" />
-
+        android:id="@+id/action_addNewSession_create"
+        android:title="@string/AddNewSessionActivity_menu"
+        app:showAsAction="always" />
 </menu>

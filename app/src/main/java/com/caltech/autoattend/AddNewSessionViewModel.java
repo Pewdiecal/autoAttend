@@ -8,11 +8,12 @@ import androidx.lifecycle.LiveData;
 
 import java.util.List;
 
-public class SubjectListViewModel extends AndroidViewModel {
+public class AddNewSessionViewModel extends AndroidViewModel {
+
     private LiveData<List<Subject>> allSubject;
     private DataRepo dataRepo;
 
-    public SubjectListViewModel(@NonNull Application application) {
+    public AddNewSessionViewModel(@NonNull Application application) {
         super(application);
         dataRepo = new DataRepo(application);
         allSubject = dataRepo.getAllSubject();

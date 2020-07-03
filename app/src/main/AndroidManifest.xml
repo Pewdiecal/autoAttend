@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ClassDetailActivity"></activity>
+        <activity android:name=".AddNewSessionActivity"></activity>
+        <activity android:name=".ClassDetailActivity" />
         <activity android:name=".HelpActivity" />
         <activity android:name=".NotificationSetting" />
         <activity android:name=".FailSafeSetting" />

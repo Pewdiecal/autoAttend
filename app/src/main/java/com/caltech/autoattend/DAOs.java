@@ -52,8 +52,8 @@ public interface DAOs {
     LiveData<Subject> getSingleSession(String session_id);
 
     @Query("SELECT * FROM Subject WHERE (sub_name = :sub_name AND class_session = :class_session " +
-            "AND session_time_start = :session_time_start AND session_time_end = :session_time_end)")
-    LiveData<Subject> checkSingleSession(String class_session, String session_time_start, String session_time_end, String sub_name);
+            "AND session_day = :session_day AND session_time_start = :session_time_start AND session_time_end = :session_time_end)")
+    LiveData<Subject> checkSingleSession(String class_session, String session_day, String session_time_start, String session_time_end, String sub_name);
 
     @Query("SELECT * FROM Subject WHERE sub_name = :sub_name")
     LiveData<List<Subject>> checkSubject(String sub_name);

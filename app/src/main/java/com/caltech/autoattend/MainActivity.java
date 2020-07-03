@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
         qrCodeLayout = findViewById(R.id.qrcode_layout);
         linkLayout = findViewById(R.id.link_layout);
         mainFragmentAdapter = new MainFragmentAdapter(this);
+        viewPager2.setUserInputEnabled(false);
         viewPager2.setAdapter(mainFragmentAdapter);
         Animation fabShow = AnimationUtils.loadAnimation(this, R.anim.fab_show);
         Animation fabHide = AnimationUtils.loadAnimation(this, R.anim.fab_hide);
@@ -56,11 +57,17 @@ public class MainActivity extends AppCompatActivity {
             }
         }, 2000, 2000);
 
-        bottomAppBar.setNavigationOnClickListener(v -> BottomSheet.newInstance().show(getSupportFragmentManager(), "bottom_sheet_menu"));
+        //bottomAppBar.setNavigationOnClickListener(v -> BottomSheet.newInstance().show(getSupportFragmentManager(), "bottom_sheet_menu"));
 
+        bottomAppBar.setNavigationOnClickListener(v -> {
+
+            viewPager2.setCurrentItem(0, false);
+        });
         bottomAppBar.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
-
+                case R.id.app_bar_settings:
+                    viewPager2.setCurrentItem(3, false);
+                    break;
             }
             return false;
         });
@@ -88,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
             mainAddFab.startAnimation(fabHide);
             qrCodeLayout.startAnimation(fabFadeOut);
             linkLayout.startAnimation(fabFadeOut);
-            Intent mainIntent = new Intent(this, AddSubject.class);
+            Intent mainIntent = new Intent(this, AddNewSessionActivity.class);
             startActivity(mainIntent);
         });
 
@@ -121,5 +128,6 @@ public class MainActivity extends AppCompatActivity {
         }
         backCounter++;
     }
+
 
 }

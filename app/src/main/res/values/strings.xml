@@ -80,6 +80,8 @@
     <string name="FailSafeActivity_SuffixText">Seconds</string>
     <string name="FailSafeActivity_timeInterval">Enter time interval</string>
 
+    <string name="AddNewSessionActivity_menu">Create New</string>
+
     <string name="NotificationActivity_attendance">Enable attendance notification</string>
     <string name="NotificationActivity_desc">Get notified on all sign in status for all class</string>
 
@@ -113,4 +115,6 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="addSub_title4">Add New Session</string>
+    <string name="AddNewSessionActivity_title">Select a subject to add</string>
 </resources>

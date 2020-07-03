@@ -103,17 +103,18 @@ public class QRScannerActivity extends AppCompatActivity {
                 final SparseArray<Barcode> barcodes = detections.getDetectedItems();
                 if (barcodes.size() != 0) {
                     if (barcodes.valueAt(0).url != null) {
-                        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QRScannerActivity.this);
-                        SharedPreferences.Editor editor = prefs.edit();
-                        editor.putString("attendance url", barcodes.valueAt(0).displayValue);
-                        editor.commit();
 
                         if (intentData != null) {
-                            Intent intent = new Intent(QRScannerActivity.this, AddSubject.class);
+                            Intent intent = new Intent(QRScannerActivity.this, AddNewSessionActivity.class);
                             Bundle bundle = new Bundle();
                             bundle.putString("attendance url", barcodes.valueAt(0).displayValue);
                             intent.putExtras(bundle);
                             startActivity(intent);
+                        } else {
+                            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QRScannerActivity.this);
+                            SharedPreferences.Editor editor = prefs.edit();
+                            editor.putString("attendance url", barcodes.valueAt(0).displayValue);
+                            editor.commit();
                         }
 
                         finish();

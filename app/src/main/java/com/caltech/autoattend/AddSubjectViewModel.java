@@ -96,8 +96,8 @@ public class AddSubjectViewModel extends AndroidViewModel {
         return dataRepo.checkSubject(subject);
     }
 
-    public LiveData<Subject> checkSingleSession(String class_session, String session_time_start, String session_time_end, String sub_name) {
-        return dataRepo.checkSingleSession(class_session, session_time_start, session_time_end, sub_name);
+    public LiveData<Subject> checkSingleSession(String class_session, String session_day, String session_time_start, String session_time_end, String sub_name) {
+        return dataRepo.checkSingleSession(class_session, session_day, session_time_start, session_time_end, sub_name);
     }
 
     public LiveData<List<Subject>> getSubject(String sub_name) {
