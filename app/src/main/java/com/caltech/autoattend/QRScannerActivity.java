@@ -24,6 +24,7 @@ import com.google.android.gms.vision.barcode.BarcodeDetector;
 
 import java.io.IOException;
 
+
 public class QRScannerActivity extends AppCompatActivity {
     SurfaceView surfaceView;
     Toolbar toolbar;
@@ -110,6 +111,7 @@ public class QRScannerActivity extends AppCompatActivity {
                             bundle.putString("attendance url", barcodes.valueAt(0).displayValue);
                             intent.putExtras(bundle);
                             startActivity(intent);
+
                         } else {
                             SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(QRScannerActivity.this);
                             SharedPreferences.Editor editor = prefs.edit();
@@ -146,7 +148,7 @@ public class QRScannerActivity extends AppCompatActivity {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);
     }
 
-    public void alertDialog() {
+    private void alertDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.QRScan_alertDialog_msg)
                 .setNegativeButton(R.string.QRScan_alertDialog_OK_btn, (dialog, id) -> finish());
@@ -154,6 +156,16 @@ public class QRScannerActivity extends AppCompatActivity {
         AlertDialog alert = builder.create();
         alert.show();
     }
+
+    private void signInDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.QRScan_alertDialog_msg)
+                .setNegativeButton(R.string.QRScan_alertDialog_OK_btn, (dialog, id) -> finish());
+
+        AlertDialog alert = builder.create();
+        alert.show();
+    }
+
 
     @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {

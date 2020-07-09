@@ -68,6 +68,7 @@
     <string name="QRScan_title">Scan QR code</string>
     <string name="QRScan_alertDialog_OK_btn">OK</string>
     <string name="QRScan_alertDialog_msg">Permission to use the camera is rejected.</string>
+    <string name="QRScan_signInDialog_msg">Attendance link detected. Signing you in…</string>
 
     <string name="SettingsFragments_CredentialSettings">Credential Setting</string>
     <string name="SettingsFragments_FailSafeSettings">FailSafe Setting</string>

@@ -2,6 +2,7 @@ package com.caltech.autoattend;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -14,8 +15,17 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.google.android.material.bottomappbar.BottomAppBar;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
+import org.jetbrains.annotations.NotNull;
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -59,10 +69,34 @@ public class MainActivity extends AppCompatActivity {
 
         //bottomAppBar.setNavigationOnClickListener(v -> BottomSheet.newInstance().show(getSupportFragmentManager(), "bottom_sheet_menu"));
 
+        HttpRequestHandler httpRequestHandler = new HttpRequestHandler("https://mmls.mmu.edu.my/attendance:398:1592779363:65824",
+                "1171103388", "iPurpleBTS&&TsXT541880", new Callback() {
+            @Override
+            public void onFailure(@NotNull Call call, @NotNull IOException e) {
+
+            }
+
+            @Override
+            public void onResponse(@NotNull Call call, @NotNull Response response) throws IOException {
+                Document document = Jsoup.parse(response.body().string());
+
+                //serverMsg = document.getElementsByClass("alert alert-danger").toString();
+                if (!document.getElementsByClass("alert alert-danger").isEmpty()) {
+                    Log.d("ALERT", document.getElementsByClass("alert alert-danger").toString());
+
+                } else {
+                    Log.d("ALERT", document.getElementsByClass("alert alert-success").toString());
+                }
+            }
+        });
+
+        httpRequestHandler.submitForm();
+
         bottomAppBar.setNavigationOnClickListener(v -> {
 
             viewPager2.setCurrentItem(0, false);
         });
+
         bottomAppBar.setOnMenuItemClickListener(item -> {
             switch (item.getItemId()) {
                 case R.id.app_bar_settings:
