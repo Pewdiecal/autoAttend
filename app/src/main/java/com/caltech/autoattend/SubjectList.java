@@ -1,6 +1,11 @@
 package com.caltech.autoattend;
 
+import android.content.ComponentName;
+import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -8,21 +13,21 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class SubjectList extends Fragment {
     RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
     SubjectListRecyclerViewAdapter mAdapter;
     SubjectListViewModel mViewModel;
-    LiveData<List<Subject>> allSubject;
     ArrayList<Subject> nonDuplicateSubjectList = new ArrayList<>();
+    ArrayList<Subject> subjectLastSignInTime = new ArrayList<>();
+    AttendanceService attendanceService;
+    boolean isBound = false;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
@@ -31,9 +36,13 @@ public class SubjectList extends Fragment {
         View view = inflater.inflate(R.layout.subject_list_fragment, container, false);
         mViewModel = new ViewModelProvider(this,
                 new ViewModelProvider.AndroidViewModelFactory(getActivity().getApplication())).get(SubjectListViewModel.class);
+        Intent intent = new Intent(getActivity(), AttendanceService.class);
+        getActivity().startService(intent);
+        getActivity().bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
 
         mViewModel.getAllSubject().observe(getActivity(), subjects -> {
             nonDuplicateSubjectList.clear();
+            subjectLastSignInTime.clear();
 
             for (Subject subject : subjects) {
                 boolean isElementExists = false;
@@ -50,7 +59,6 @@ public class SubjectList extends Fragment {
                         }
                     }
                 }
-
             }
 
             if (mAdapter == null) {
@@ -61,6 +69,7 @@ public class SubjectList extends Fragment {
             }
 
         });
+
         recyclerView = view.findViewById(R.id.subject_itemList);
         recyclerView.setHasFixedSize(true);
         layoutManager = new LinearLayoutManager(getContext());
@@ -74,5 +83,20 @@ public class SubjectList extends Fragment {
 
         // TODO: Use the ViewModel
     }
+
+    private ServiceConnection myConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            AttendanceService.LocalBinder binder = (AttendanceService.LocalBinder) service;
+            attendanceService = binder.getService();
+            isBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isBound = false;
+        }
+    };
 
 }

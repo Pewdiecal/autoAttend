@@ -1,10 +1,11 @@
 package com.caltech.autoattend;
 
 import android.app.Application;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
-import androidx.lifecycle.LiveData;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -14,12 +15,10 @@ import java.util.Locale;
 public class ScheduleSetupViewModel extends AndroidViewModel {
 
     private DataRepo dataRepo;
-    private LiveData<SemesterDate> semesterDate;
 
     public ScheduleSetupViewModel(@NonNull Application application) {
         super(application);
         dataRepo = new DataRepo(application);
-        semesterDate = dataRepo.getSemesterDate();
     }
 
     public boolean checkDate(String strDateStart, String strDateEnd) {
@@ -39,14 +38,11 @@ public class ScheduleSetupViewModel extends AndroidViewModel {
     }
 
     public void insertNewSemesterDate(String strDateStart, String strDateEnd) {
-        dataRepo.insertNewSemesterDate(new SemesterDate(1, strDateStart, strDateEnd));
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getApplication());
+        SharedPreferences.Editor editor = prefs.edit();
+        editor.putString("Semester Date Start", strDateStart);
+        editor.putString("Semester Date End", strDateEnd);
+        editor.commit();
     }
 
-    public void updateSemesterDate(SemesterDate semesterDate) {
-        dataRepo.updateSemesterDate(semesterDate);
-    }
-
-    public LiveData<SemesterDate> getSemesterDate() {
-        return semesterDate;
-    }
 }

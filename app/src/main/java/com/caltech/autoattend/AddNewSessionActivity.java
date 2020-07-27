@@ -25,7 +25,9 @@ public class AddNewSessionActivity extends AppCompatActivity {
     AddNewSessionViewModel addNewSessionViewModel;
     AddNewSessionAdapter addNewSessionAdapter;
     ArrayList<Subject> nonDuplicateSubjectList = new ArrayList<>();
-    String intentData;
+    String attendanceURL;
+    String time;
+    String date;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,7 +41,10 @@ public class AddNewSessionActivity extends AppCompatActivity {
 
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
-            intentData = bundle.getString("attendance url");
+            attendanceURL = bundle.getString("attendance url");
+            time = bundle.getString("attendance time");
+            date = bundle.getString("attendance date");
+
         }
         toolbar.setTitle(R.string.AddNewSessionActivity_title);
         setSupportActionBar(toolbar);
@@ -70,10 +75,10 @@ public class AddNewSessionActivity extends AppCompatActivity {
                 }
 
                 if (addNewSessionAdapter == null) {
-                    if (intentData != null) {
-                        addNewSessionAdapter = new AddNewSessionAdapter(nonDuplicateSubjectList, intentData);
+                    if (attendanceURL != null) {
+                        addNewSessionAdapter = new AddNewSessionAdapter(nonDuplicateSubjectList, attendanceURL, time, date);
                     } else {
-                        addNewSessionAdapter = new AddNewSessionAdapter(nonDuplicateSubjectList, null);
+                        addNewSessionAdapter = new AddNewSessionAdapter(nonDuplicateSubjectList, null, null, null);
                     }
                     recyclerView.setAdapter(addNewSessionAdapter);
                 } else {
@@ -99,9 +104,11 @@ public class AddNewSessionActivity extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.action_addNewSession_create:
                 Intent intent = new Intent(this, AddSubject.class);
-                if (intentData != null) {
+                if (attendanceURL != null) {
                     Bundle bundle = new Bundle();
-                    bundle.putString("attendance url", intentData);
+                    bundle.putString("attendance url", attendanceURL);
+                    bundle.putString("attendance time", time);
+                    bundle.putString("attendance date", date);
                     intent.putExtras(bundle);
                 }
                 startActivity(intent);

@@ -62,7 +62,13 @@ public class SubjectListRecyclerViewAdapter extends RecyclerView.Adapter<Subject
         int STROKE_WIDTH = 8;
         holder.gradientDrawable.setStroke(STROKE_WIDTH, Color.parseColor(subjectList.get(position).colorHex));
         title.setText(subjectList.get(position).sub_name);
-        signInStats.setText("LAST SIGN IN");
+        /*if(subjectList.get(position).last_signIn_time == null && subjectList.get(position).last_signIn_date == null){
+            signInStats.setText("Recent sign-in: N/A");
+        } else {
+            signInStats.setText("Recent sign-in: " + subjectList.get(position).last_signIn_date + " "
+                    + subjectList.get(position).last_signIn_time);
+        }*/
+        signInStats.setText("");
 
         holder.cardView.setOnClickListener(v -> {
             Intent intent = new Intent(v.getContext(), ClassDetailActivity.class);
@@ -82,4 +88,5 @@ public class SubjectListRecyclerViewAdapter extends RecyclerView.Adapter<Subject
         this.subjectList = subjectList;
         notifyDataSetChanged();
     }
+
 }

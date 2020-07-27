@@ -21,7 +21,6 @@ import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.LiveData;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
 import com.google.android.material.textfield.TextInputLayout;
@@ -57,7 +56,8 @@ public class AddSubject extends AppCompatActivity {
     String sessionID;
     Subject subject;
     String newSession;
-
+    String date;
+    String time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,6 +83,8 @@ public class AddSubject extends AppCompatActivity {
         prefs = PreferenceManager.getDefaultSharedPreferences(this);
         editor = prefs.edit();
         editor.remove("attendance url");
+        editor.remove("attendance time");
+        editor.remove("attendance date");
         editor.commit();
 
         random = new Random();
@@ -92,6 +94,8 @@ public class AddSubject extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         if (bundle != null) {
             linkEdt.setText(bundle.getString("attendance url"));
+            time = bundle.getString("attendance time");
+            date = bundle.getString("attendance date");
             subName = bundle.getString("Subject Name");
             sessionID = bundle.getString("Session ID");
             newSession = bundle.getString("New Session");
@@ -105,15 +109,12 @@ public class AddSubject extends AppCompatActivity {
             dayInputLayout.setVisibility(View.GONE);
             scanQR.setVisibility(View.GONE);
 
-            addSubjectViewModel.getSubject(subName).observe(this, new Observer<List<Subject>>() {
-                @Override
-                public void onChanged(List<Subject> subjects) {
-                    if (subjects.size() != 0) {
-                        subjectEdt.setText(subjects.get(0).sub_name);
-                        colorTxt.setText(addSubjectViewModel.getColorName().get(subjects.get(0).colorHex), false);
-                    }
-
+            addSubjectViewModel.getSubject(subName).observe(this, subjects -> {
+                if (subjects.size() != 0) {
+                    subjectEdt.setText(subjects.get(0).sub_name);
+                    colorTxt.setText(addSubjectViewModel.getColorName().get(subjects.get(0).colorHex), false);
                 }
+
             });
             toolbar.setTitle(R.string.addSub_title2);
 
@@ -122,34 +123,28 @@ public class AddSubject extends AppCompatActivity {
             subjectInputLayout.setEnabled(false);
             colorInputLayout.setEnabled(false);
 
-            addSubjectViewModel.getSingleSession(sessionID).observe(this, new Observer<Subject>() {
-                @Override
-                public void onChanged(Subject subject) {
-                    if (subject != null) {
-                        subjectEdt.setText(subject.sub_name);
-                        colorTxt.setText(addSubjectViewModel.getColorName().get(subject.colorHex));
-                        classTxt.setText(subject.class_session, false);
-                        dayTxt.setText(subject.session_day, false);
-                        timeStartTxt.setText(subject.session_time_start, false);
-                        timeEndTxt.setText(subject.session_time_end, false);
-                        linkEdt.setText(subject.session_link);
-                        AddSubject.this.subject = subject;
-                    }
+            addSubjectViewModel.getSingleSession(sessionID).observe(this, subject -> {
+                if (subject != null) {
+                    subjectEdt.setText(subject.sub_name);
+                    colorTxt.setText(addSubjectViewModel.getColorName().get(subject.colorHex));
+                    classTxt.setText(subject.class_session, false);
+                    dayTxt.setText(subject.session_day, false);
+                    timeStartTxt.setText(subject.session_time_start, false);
+                    timeEndTxt.setText(subject.session_time_end, false);
+                    linkEdt.setText(subject.session_link);
+                    AddSubject.this.subject = subject;
                 }
             });
 
         } else if (newSession != null) {
-            addSubjectViewModel.getSubject(newSession).observe(this, new Observer<List<Subject>>() {
-                @Override
-                public void onChanged(List<Subject> subjects) {
-                    if (subjects.size() != 0) {
-                        subjectInputLayout.setEnabled(false);
-                        colorInputLayout.setEnabled(false);
-                        subjectEdt.setText(subjects.get(0).sub_name);
-                        colorTxt.setText(addSubjectViewModel.getColorName().get(subjects.get(0).colorHex), false);
-                    }
-
+            addSubjectViewModel.getSubject(newSession).observe(this, subjects -> {
+                if (subjects.size() != 0) {
+                    subjectInputLayout.setEnabled(false);
+                    colorInputLayout.setEnabled(false);
+                    subjectEdt.setText(subjects.get(0).sub_name);
+                    colorTxt.setText(addSubjectViewModel.getColorName().get(subjects.get(0).colorHex), false);
                 }
+
             });
             toolbar.setTitle(R.string.addSub_title4);
         } else {
@@ -158,19 +153,9 @@ public class AddSubject extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        timeStartInputLayout.setErrorIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timeStartInputLayout.setError(null);
-            }
-        });
+        timeStartInputLayout.setErrorIconOnClickListener(v -> timeStartInputLayout.setError(null));
 
-        timeEndInputLayout.setErrorIconOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                timeEndInputLayout.setError(null);
-            }
-        });
+        timeEndInputLayout.setErrorIconOnClickListener(v -> timeEndInputLayout.setError(null));
 
         TimePickerDialog timeStartPickerDialog = new TimePickerDialog(this,
                 (view, hourOfDay, minute) -> {
@@ -388,7 +373,7 @@ public class AddSubject extends AppCompatActivity {
                                     } else {
                                         addSubjectViewModel.insertNewSubject(subjectEdt.getText().toString(), subjects.get(0).colorHex,
                                                 session_id.toString(), classTxt.getText().toString(), timeStartTxt.getText().toString(),
-                                                timeEndTxt.getText().toString(), dayTxt.getText().toString(), linkEdt.getText().toString());
+                                                timeEndTxt.getText().toString(), dayTxt.getText().toString(), linkEdt.getText().toString(), time, date);
                                         listLiveData.removeObservers(AddSubject.this);
                                         finish();
                                     }
@@ -398,7 +383,7 @@ public class AddSubject extends AppCompatActivity {
                                 addSubjectViewModel.insertNewSubject(subjectEdt.getText().toString(),
                                         addSubjectViewModel.getColorHex().get(colorTxt.getText().toString()),
                                         session_id.toString(), classTxt.getText().toString(), timeStartTxt.getText().toString(),
-                                        timeEndTxt.getText().toString(), dayTxt.getText().toString(), linkEdt.getText().toString());
+                                        timeEndTxt.getText().toString(), dayTxt.getText().toString(), linkEdt.getText().toString(), time, date);
                                 finish();
 
                             }
@@ -451,6 +436,8 @@ public class AddSubject extends AppCompatActivity {
         }
         if (linkEdt.getText().toString().isEmpty()) {
             linkInputLayout.setError("Link cannot be empty");
+        } else if (!linkEdt.getText().toString().contains("https://mmls.mmu.edu.my/attendance:")) {
+            linkInputLayout.setError("Link is invalid");
         }
 
         if (subName != null) {
@@ -470,15 +457,12 @@ public class AddSubject extends AppCompatActivity {
     public void alertDialog(Subject subject) {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setMessage(R.string.addSub_alertDialog_msg)
-                .setPositiveButton(R.string.addSub_alertDialog_merge, (dialog, id) -> {
-                    // FIRE ZE MISSILES!
-                    finish();
-                })
+                .setPositiveButton(R.string.addSub_alertDialog_merge, (dialog, id) -> finish())
                 .setNegativeButton(R.string.addSub_alertDialog_duplicate, (dialog, id) -> {
                     // User cancelled the dialog
                     addSubjectViewModel.insertNewSubject(subject.sub_name, subject.colorHex,
                             session_id.toString(), classTxt.getText().toString(), timeStartTxt.getText().toString(),
-                            timeEndTxt.getText().toString(), dayTxt.getText().toString(), linkEdt.getText().toString());
+                            timeEndTxt.getText().toString(), dayTxt.getText().toString(), linkEdt.getText().toString(), time, date);
                     finish();
                 });
 
@@ -489,6 +473,8 @@ public class AddSubject extends AppCompatActivity {
     @Override
     protected void onStop() {
         editor.remove("attendance url");
+        editor.remove("attendance time");
+        editor.remove("attendance date");
         editor.commit();
         super.onStop();
     }

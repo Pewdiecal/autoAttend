@@ -43,7 +43,7 @@ public class HttpRequestHandler {
         client.newCall(request).enqueue(new Callback() {
             @Override
             public void onFailure(@NotNull Call call, @NotNull IOException e) {
-
+                callback.onFailure(call, e);
             }
 
             @Override
@@ -98,7 +98,6 @@ public class HttpRequestHandler {
         });
 
     }
-
 
     private void postFormRequest(String token, String timeTableID, String startTime, String endTime, String classDate,
                                  String classID, String formPostRequestURL, String cookieID) {

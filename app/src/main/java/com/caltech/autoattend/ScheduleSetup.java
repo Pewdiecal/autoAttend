@@ -4,7 +4,9 @@ import android.annotation.SuppressLint;
 import android.app.ActivityOptions;
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.Toast;
@@ -26,7 +28,7 @@ public class ScheduleSetup extends AppCompatActivity {
     Button backBtn;
     Button finishBtn;
     ScheduleSetupViewModel viewModel;
-    SemesterDate semesterDate;
+    String semesterDate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,13 +43,14 @@ public class ScheduleSetup extends AppCompatActivity {
         finishBtn = findViewById(R.id.schedule_finishbtn);
         viewModel = new ViewModelProvider(this,
                 new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(ScheduleSetupViewModel.class);
-
-        viewModel.getSemesterDate().observe(this, semesterDate -> ScheduleSetup.this.semesterDate = semesterDate);
+        SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+        semesterDate = prefs.getString("Semester Date Start", null);
 
         if (semesterDate != null) {
+            backBtn.setEnabled(false);
             finishBtn.setText(R.string.confirm_btn);
-            startDateTxt.setText(semesterDate.startDate);
-            endDateTxt.setText(semesterDate.endDate);
+            startDateTxt.setText(prefs.getString("Semester Date Start", null));
+            endDateTxt.setText(prefs.getString("Semester Date End", null));
         }
 
         SimpleDateFormat yyyy = new SimpleDateFormat("yyyy", Locale.UK);
@@ -76,13 +79,9 @@ public class ScheduleSetup extends AppCompatActivity {
             if (!viewModel.checkDate(startDateTxt.getText().toString(), endDateTxt.getText().toString())) {
                 Toast.makeText(getApplicationContext(), "Invalid date input. Try again", Toast.LENGTH_LONG).show();
             } else {
-                if (semesterDate != null) {
-                    semesterDate.startDate = startDateTxt.getText().toString();
-                    semesterDate.endDate = endDateTxt.getText().toString();
-                    viewModel.updateSemesterDate(semesterDate);
-                } else {
-                    viewModel.insertNewSemesterDate(startDateTxt.getText().toString(), endDateTxt.getText().toString());
-                }
+
+                viewModel.insertNewSemesterDate(startDateTxt.getText().toString(), endDateTxt.getText().toString());
+
                 Intent mainIntent = new Intent(ScheduleSetup.this, MainActivity.class);
 
                 ActivityOptions options =

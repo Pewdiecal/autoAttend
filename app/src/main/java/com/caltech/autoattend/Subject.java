@@ -3,8 +3,13 @@ package com.caltech.autoattend;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
+
 @Entity(tableName = "Subject")
-public class Subject {
+public class Subject implements Comparable<Subject> {
 
     @PrimaryKey(autoGenerate = true)
     public int sub_id;
@@ -44,5 +49,39 @@ public class Subject {
         this.session_link = session_link;
         this.last_signIn_date = last_signIn_date;
         this.last_signIn_time = last_signIn_time;
+    }
+
+
+    @Override
+    public int compareTo(Subject o) {
+        SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy", Locale.UK);
+        SimpleDateFormat dt = new SimpleDateFormat("HH:mm", Locale.UK);
+        Date dateStart = null;
+        Date nextDate = null;
+        Date timeStart = null;
+        Date nextTime = null;
+
+        try {
+            if (this.last_signIn_date != null && o.last_signIn_date != null) {
+                dateStart = df.parse(this.last_signIn_date);
+                nextDate = df.parse(o.last_signIn_date);
+                timeStart = dt.parse(this.last_signIn_time);
+                nextTime = dt.parse(o.last_signIn_time);
+            }
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        if (dateStart != null) {
+            if ((this.sub_id < o.sub_id) && dateStart.compareTo(nextDate) < 0 && timeStart.compareTo(nextTime) < 0) {
+                return -1;
+            } else if ((this.sub_id > o.sub_id) && dateStart.compareTo(nextDate) > 0 && timeStart.compareTo(nextTime) > 0) {
+                return 1;
+            } else {
+                return 0;
+            }
+        } else {
+            return Integer.compare(this.sub_id, o.sub_id);
+        }
     }
 }

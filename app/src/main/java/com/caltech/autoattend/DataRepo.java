@@ -90,4 +90,8 @@ public class DataRepo {
     public void updateSubject(String sub_name, String colorHex, String og_sub_name) {
         DataStorage.databaseWriteExecutor.execute(() -> daOs.updateSubject(sub_name, colorHex, og_sub_name));
     }
+
+    public void updateSignInTime(int id, String date, String time) {
+        DataStorage.databaseWriteExecutor.execute(() -> daOs.updateSignInTime(id, date, time));
+    }
 }

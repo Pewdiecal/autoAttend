@@ -10,6 +10,7 @@ import java.util.List;
 
 public class SubjectListViewModel extends AndroidViewModel {
     private LiveData<List<Subject>> allSubject;
+    private LiveData<List<Subject>> allSessions;
     private DataRepo dataRepo;
 
     public SubjectListViewModel(@NonNull Application application) {
@@ -21,4 +22,9 @@ public class SubjectListViewModel extends AndroidViewModel {
     public LiveData<List<Subject>> getAllSubject() {
         return allSubject;
     }
+
+    public LiveData<List<Subject>> getAllSessions(String sub_name) {
+        return dataRepo.getAllSession(sub_name);
+    }
+
 }

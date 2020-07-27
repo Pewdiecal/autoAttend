@@ -64,10 +64,10 @@ public class AddSubjectViewModel extends AndroidViewModel {
     }
 
     public void insertNewSubject(String sub_name, String color, String session_id, String class_session,
-                                 String session_time_start, String session_time_end, String session_day, String session_link) {
+                                 String session_time_start, String session_time_end, String session_day, String session_link, String time, String date) {
 
         dataRepo.insertNewSubject(new Subject(sub_name, color, session_id, class_session,
-                session_time_start, session_time_end, session_day, session_link, null, null));
+                session_time_start, session_time_end, session_day, session_link, date, time));
     }
 
     public void updateSubject(Subject subject, String session_id, String class_session,

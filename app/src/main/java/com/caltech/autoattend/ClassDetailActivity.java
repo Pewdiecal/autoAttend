@@ -1,8 +1,12 @@
 package com.caltech.autoattend;
 
+import android.content.ComponentName;
+import android.content.Context;
 import android.content.Intent;
+import android.content.ServiceConnection;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.os.IBinder;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -21,6 +25,8 @@ public class ClassDetailActivity extends AppCompatActivity {
     RecyclerView.LayoutManager layoutManager;
     ClassDetailAdapter classDetailAdapter;
     ClassDetailViewModel classDetailViewModel;
+    AttendanceService attendanceService;
+    boolean isBound = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,8 +41,11 @@ public class ClassDetailActivity extends AppCompatActivity {
 
         toolbar.setTitle(bundle.getString("Subject Name"));
         classDetailViewModel.getAllSession(bundle.getString("Subject Name")).observe(this, subjects -> {
+            if (subjects.size() == 0) {
+                finish();
+            }
             if (classDetailAdapter == null) {
-                classDetailAdapter = new ClassDetailAdapter(subjects, getApplication());
+                classDetailAdapter = new ClassDetailAdapter(subjects, getApplication(), attendanceService);
                 recyclerView.setAdapter(classDetailAdapter);
             } else {
                 classDetailAdapter.updateData(subjects);
@@ -59,6 +68,35 @@ public class ClassDetailActivity extends AppCompatActivity {
         layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
 
+    }
+
+    private ServiceConnection myConnection = new ServiceConnection() {
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+            AttendanceService.LocalBinder binder = (AttendanceService.LocalBinder) service;
+            attendanceService = binder.getService();
+            isBound = true;
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName name) {
+            isBound = false;
+        }
+    };
+
+    @Override
+    protected void onStart() {
+        Intent intent = new Intent(this, AttendanceService.class);
+        bindService(intent, myConnection, Context.BIND_AUTO_CREATE);
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        unbindService(myConnection);
+        isBound = false;
     }
 
     @Override

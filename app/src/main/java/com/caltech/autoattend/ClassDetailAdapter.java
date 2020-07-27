@@ -21,11 +21,13 @@ public class ClassDetailAdapter extends RecyclerView.Adapter<ClassDetailAdapter.
     List<Subject> subjects;
     Application application;
     DataRepo dataRepo;
+    AttendanceService attendanceService;
 
-    public ClassDetailAdapter(List<Subject> subjects, Application application) {
+    public ClassDetailAdapter(List<Subject> subjects, Application application, AttendanceService attendanceService) {
         this.subjects = subjects;
         this.application = application;
         this.dataRepo = new DataRepo(application);
+        this.attendanceService = attendanceService;
     }
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
@@ -63,7 +65,7 @@ public class ClassDetailAdapter extends RecyclerView.Adapter<ClassDetailAdapter.
         imageView.setOnClickListener(v -> {
 
             dataRepo.deleteSession(subjects.get(position));
-            subjects.remove(position);
+            attendanceService.removeSession(subjects.remove(position).sub_id);
             notifyDataSetChanged();
         });
         constraintLayout.setOnClickListener(new View.OnClickListener() {

@@ -61,4 +61,7 @@ public interface DAOs {
     @Query("UPDATE Subject SET sub_name = :sub_name, colorHex = :colorHex WHERE sub_name = :og_sub_name")
     void updateSubject(String sub_name, String colorHex, String og_sub_name);
 
+    @Query("UPDATE Subject SET last_signIn_date = :date, last_signIn_time = :time WHERE sub_id = :id")
+    void updateSignInTime(int id, String date, String time);
+
 }

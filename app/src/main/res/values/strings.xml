@@ -2,6 +2,12 @@
     <string name="app_name">autoAttend</string>
     <!-- TODO: Remove or change this placeholder text -->
 
+    <string name="splash_date_alert">The end of your semester has reached. Do you want to extend your semester date?</string>
+    <string name="splash_subClear_alert">All your subject will be cleared for new semester. Do you want to continue?</string>
+    <string name="splash_extend_btn">Extend</string>
+    <string name="splash_createNew_btn">No</string>
+    <string name="splash_yes_btn">Yes</string>
+
     <string name="onboard_btn">Get Started</string>
     <string name="frag_1_h1">Never miss a class</string>
     <string name="frag_1_sub">Automated attendance sign-in with smart FailSafe feature to ensure successful sign in.</string>
@@ -69,6 +75,8 @@
     <string name="QRScan_alertDialog_OK_btn">OK</string>
     <string name="QRScan_alertDialog_msg">Permission to use the camera is rejected.</string>
     <string name="QRScan_signInDialog_msg">Attendance link detected. Signing you in…</string>
+    <string name="QRScan_error">Connection Error. Please try again.</string>
+    <string name="QRScan_invalidLink">The link is invalid.</string>
 
     <string name="SettingsFragments_CredentialSettings">Credential Setting</string>
     <string name="SettingsFragments_FailSafeSettings">FailSafe Setting</string>
@@ -80,6 +88,8 @@
     <string name="FailSafeActivity_intervalTime">Reattempt interval time</string>
     <string name="FailSafeActivity_SuffixText">Seconds</string>
     <string name="FailSafeActivity_timeInterval">Enter time interval</string>
+
+    <string name="LinkVerifier_text">Verifying your attendance link…</string>
 
     <string name="AddNewSessionActivity_menu">Create New</string>
 

@@ -22,6 +22,8 @@ public class AddNewSessionAdapter extends RecyclerView.Adapter<AddNewSessionAdap
 
     List<Subject> subjectList;
     String attendanceUrl;
+    String time;
+    String date;
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
         public TextView subjectTitle;
@@ -40,9 +42,11 @@ public class AddNewSessionAdapter extends RecyclerView.Adapter<AddNewSessionAdap
         }
     }
 
-    public AddNewSessionAdapter(List<Subject> subjectLists, String attendanceUrl) {
+    public AddNewSessionAdapter(List<Subject> subjectLists, String attendanceURL, String time, String date) {
         this.subjectList = subjectLists;
-        this.attendanceUrl = attendanceUrl;
+        this.attendanceUrl = attendanceURL;
+        this.time = time;
+        this.date = date;
     }
 
     @NonNull
@@ -62,6 +66,7 @@ public class AddNewSessionAdapter extends RecyclerView.Adapter<AddNewSessionAdap
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
         TextView title = holder.subjectTitle;
         TextView signInStats = holder.lastSignIn;
+        signInStats.setText("");
         int STROKE_WIDTH = 8;
         holder.gradientDrawable.setStroke(STROKE_WIDTH, Color.parseColor(subjectList.get(position).colorHex));
         title.setText(subjectList.get(position).sub_name);
@@ -72,6 +77,8 @@ public class AddNewSessionAdapter extends RecyclerView.Adapter<AddNewSessionAdap
             bundle.putString("New Session", subjectList.get(position).sub_name);
             if (attendanceUrl != null) {
                 bundle.putString("attendance url", attendanceUrl);
+                bundle.putString("attendance time", time);
+                bundle.putString("attendance date", date);
             }
             intent.putExtras(bundle);
             v.getContext().startActivity(intent);
