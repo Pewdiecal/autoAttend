@@ -1,0 +1,5 @@
+steps:
+ - label: ":hammer: Build"
+   command: "bundle install && bundle exec fastlane testBuild"
+   agent:
+      queue: "android"
