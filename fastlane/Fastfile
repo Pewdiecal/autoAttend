@@ -1,0 +1,14 @@
+default_platform(:android)
+
+# Project files
+gradle_file_path = 'app/build.gradle'
+
+# Gradle file folder
+gradle_file_folder = 'app'
+
+desc 'Fastlane tutorial playground'
+
+lane :testBuild do
+	gradle(task: 'assemble')
+end
+   
