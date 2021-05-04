@@ -1,6 +1,10 @@
 steps:
   - label: ":hammer: Build"
     command: "bundle install && bundle exec fastlane testBuild"
+    plugins:
+      - docker-compose#v3.7.0:
+          mount-buildkite-agent: true
+          run: app
     agents:
       queue: "android"
 
