@@ -1,6 +1,6 @@
 steps:
   - label: ":hammer: Build"
-    command: "gem install bundle && bundle exec fastlane testBuild"
+    command: gem install bundle && bundle exec fastlane testBuild
     agents:
       queue: "android"
 
