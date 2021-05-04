@@ -1,6 +1,6 @@
 steps:
   - label: ":hammer: Build"
-    command: "gem install bundle && bundle exec fastlane testBuild"
+    command: "bundle install && bundle exec fastlane testBuild"
     plugins:
       - docker-compose#v3.7.0:
           mount-buildkite-agent: true
