@@ -8,7 +8,7 @@ gradle_file_folder = 'app'
 
 desc 'Fastlane tutorial playground'
 
-lane :testBu do
+lane :testBuild do
 	gradle(task: 'assemble')
 end
    
