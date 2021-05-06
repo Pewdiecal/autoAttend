@@ -1,5 +1,11 @@
 default_platform(:android)
 
+# Repository and branches
+upstream_repo = 'Pewdiecal/autoAttend'
+upstream_remote = 'upstream'
+default_master_branch = 'alpha_dev'
+default_release_branch = 'alpha_dev'
+
 # Project files
 gradle_file_path = 'app/build.gradle'
 
