@@ -41,7 +41,6 @@ lane :prep_release_bump_version do |options|
     ext_constant_name: options[:version_name_ext_constant_name],
     bump_type: options[:bump_type] || ENV['FL_BUMP_TYPE_BUMP_TYPE']
   }
-  clean_build_artifacts
   increment_version_name(version_name_options)
 
   version_code_options = {
@@ -67,9 +66,9 @@ lane :prep_release_bump_build do |options|
 end
 
 private_lane :prep_release do |options|
-  clean_build_artifacts
   version_name = get_version_name
   version_code = get_version_code
+  clean_build_artifacts
   commit_android_version_bump(
     gradle_file_folder: gradle_file_folder,
     message: "[skip ci] Bump version to #{version_name} build #{version_code}"
