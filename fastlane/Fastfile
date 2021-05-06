@@ -12,3 +12,50 @@ lane :testBuild do
 	gradle(task: 'assemble')
 end
    
+#----------------------------------------------------
+# Release management and prep
+#----------------------------------------------------
+desc 'Commit *version+build* bump => Tag => Push to upstream/master'
+lane :prep_release_bump_version do |options|
+  version_name_options = {
+    gradle_file_path: gradle_file_path,
+    version_name: options[:version_name],
+    ext_constant_name: options[:version_name_ext_constant_name],
+    bump_type: options[:bump_type] || ENV['FL_BUMP_TYPE_BUMP_TYPE']
+  }
+  increment_version_name(version_name_options)
+
+  version_code_options = {
+    version_code: options[:version_code] || ENV['FL_VERSION_CODE_VERSION_CODE'],
+    ext_constant_name: options[:version_code_ext_constant_name],
+    app_folder_name: options[:app_folder_name]
+  }
+  increment_version_code(version_code_options)
+
+  prep_release
+end
+
+desc 'Commit *build* bump => Tag => Push to upstream/master'
+lane :prep_release_bump_build do |options|
+  version_code_options = {
+    version_code: options[:version_code],
+    ext_constant_name: options[:version_code_ext_constant_name],
+    app_folder_name: options[:app_folder_name]
+  }
+  increment_version_code(version_code_options)
+
+  prep_release
+end
+
+private_lane :prep_release do |options|
+  version_name = get_version_name
+  version_code = get_version_code
+  commit_android_version_bump(
+    gradle_file_folder: gradle_file_folder,
+    message: "[skip ci] Bump version to #{version_name} build #{version_code}"
+  )
+  add_git_tag(tag: "releases/#{version_name}/#{version_code}")
+
+  master_branch = options[:master_branch] || default_master_branch
+  push_to_git_remote(remote: upstream_remote, remote_branch: master_branch)
+end
