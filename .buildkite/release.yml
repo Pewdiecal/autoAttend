@@ -1,0 +1,30 @@
+steps:
+  - block: ":rocket: Release"
+    fields:
+      - text: "Version Name"
+        key: "version-name"
+        hint: "To override the default, provide an explicit version name."
+        required: false
+      - text: "Version Code"
+        key: "version-code"
+        hint: "To override the default, provide an explicit version code."
+        required: false
+      - select: "Bump type"
+        key: "bump-type"
+        required: false
+        options:
+          - label: "Patch"
+            value: "patch"
+          - label: "Minor"
+            value: "minor"
+          - label: "Major"
+            value: "major"
+        
+        
+  - label: "Release :rocket: "
+    command: 
+        - "bundle install && bash scripts/buildkite-fastlane-release.sh"
+    plugins:
+        - docker-compose#v3.7.0:
+            mount-buildkite-agent: true
+            run: app
