@@ -25,7 +25,6 @@ end
 
 desc "Run lint test and unit test on release build"
 lane :test_release do
-	clean_build_artifacts
 	skip_readme
 	gradle(task: "lintRelease")
 	gradle(task: "testReleaseUnitTest")
@@ -61,6 +60,7 @@ lane :prep_release_bump_build do |options|
     ext_constant_name: options[:version_code_ext_constant_name],
     app_folder_name: options[:app_folder_name]
   }
+  clean_build_artifacts
   increment_version_code(version_code_options)
 
   prep_release
