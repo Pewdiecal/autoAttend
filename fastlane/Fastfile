@@ -67,6 +67,7 @@ lane :prep_release_bump_build do |options|
 end
 
 private_lane :prep_release do |options|
+  clean_build_artifacts
   version_name = get_version_name
   version_code = get_version_code
   commit_android_version_bump(
