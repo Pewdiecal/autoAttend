@@ -11,6 +11,18 @@ desc 'Fastlane tutorial playground'
 lane :testBuild do
 	gradle(task: 'assemble')
 end
+
+desc "Skip generating fastlane readme"
+lane :skip_readme do
+	skip_docs
+end
+
+desc "Run lint test and unit test on release build"
+lane :test_release do
+	skip_readme
+	gradle(task: "lintRelease")
+	gradle(task: "testReleaseUnitTest")
+end
    
 #----------------------------------------------------
 # Release management and prep
