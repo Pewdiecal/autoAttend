@@ -25,7 +25,7 @@ end
 
 desc "Run lint test and unit test on release build"
 lane :test_release do
-	skip_docs
+	skip_readme
 	gradle(task: "lintRelease")
 	gradle(task: "testReleaseUnitTest")
 end
