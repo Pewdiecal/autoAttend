@@ -69,6 +69,7 @@ private_lane :prep_release do |options|
   version_name = get_version_name
   version_code = get_version_code
   clean_build_artifacts
+  skip_docs
   sh("git", "checkout", "/bitrise/src/android/Gemfile.lock")
   commit_android_version_bump(
     gradle_file_folder: gradle_file_folder,
