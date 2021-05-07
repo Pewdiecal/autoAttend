@@ -69,7 +69,7 @@ private_lane :prep_release do |options|
   version_name = get_version_name
   version_code = get_version_code
   clean_build_artifacts
-  git checkout Gemfile.lock 
+  git checkout Gemfile
   commit_android_version_bump(
     gradle_file_folder: gradle_file_folder,
     message: "[skip ci] Bump version to #{version_name} build #{version_code}"
