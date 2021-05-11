@@ -14,3 +14,4 @@
 .cxx
 /app/src/androidTest/java/com/caltech/autoattend/
 /app/src/test/java/com/caltech/autoattend/
+/fastlane/report.xml
