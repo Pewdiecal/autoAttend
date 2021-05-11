@@ -2,7 +2,7 @@ default_platform(:android)
 
 # Repository and branches
 upstream_repo = 'Pewdiecal/autoAttend'
-upstream_remote = 'alpha_dev'
+upstream_remote = 'Pewdiecal/autoAttend'
 default_master_branch = 'alpha_dev'
 default_release_branch = 'alpha_dev'
 
