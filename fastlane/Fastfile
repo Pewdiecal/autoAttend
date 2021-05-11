@@ -71,6 +71,7 @@ private_lane :prep_release do |options|
   clean_build_artifacts
   skip_docs
   sh("git", "checkout", "/bitrise/src/android/Gemfile.lock")
+  sh("git config --get remote.origin.url")
   commit_android_version_bump(
     gradle_file_folder: gradle_file_folder,
     message: "[skip ci] Bump version to #{version_name} build #{version_code}"
