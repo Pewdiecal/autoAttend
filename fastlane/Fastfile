@@ -75,7 +75,7 @@ private_lane :prep_release do |options|
     gradle_file_folder: gradle_file_folder,
     message: "[skip ci] Bump version to #{version_name} build #{version_code}"
   )
-  add_git_tag(tag: "releases/#{version_name}/#{version_code}")
+  #add_git_tag(tag: "releases/#{version_name}/#{version_code}")
 
   master_branch = options[:master_branch] || default_master_branch
   push_to_git_remote(remote: upstream_remote, remote_branch: master_branch)
